@@ -1,0 +1,7 @@
+<view>
+	<ul>
+		<li wx:for="{{planList}}">
+      <text bindtap="showDetail" data-id="{{item._id}}">{{item.title}}</text>
+      </li>
+	</ul>
+</view>

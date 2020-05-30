@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/plan/plan/planList/planList",
+    "pages/plan/plan/addPlan/addPlan",
     "pages/plan/plan/planCover",
     "pages/myFirstPage/myFirstPage",
     "pages/index/index",

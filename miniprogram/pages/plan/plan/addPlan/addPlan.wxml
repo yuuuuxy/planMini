@@ -1,0 +1,28 @@
+<view class="content" wx:if="{{showFlag=='1'}}">
+	<view class="btn add" data-showFlag="{{2}}" bindtap="changeFlag">增加计划</view>
+	<view class="btn cut" data-showFlag="{{3}}" bindtap="changeFlag">减少计划</view>
+</view>
+<view class="content" wx:else>
+	<view class="flex">
+		<view class="retbtn" data-showFlag="{{1}}" bindtap="changeFlag">返回</view>
+
+	</view>
+	<view class="content-de" wx:if="{{showFlag=='2'}}">
+		<form id="addForm" catchsubmit="formSubmit" catchreset="formReset">
+			起个名字吧
+			<input type="text" name="title"></input>
+			设定一个总值
+			<input type="number" name="total"></input>
+			设定一个时间（天）
+			<input type="text" name="expect"></input>
+			<input hidden name="type" value="1"></input><!-- 增加类型为1 即累加类的-->
+			<view class="btn-area">
+				<button style="margin: 30rpx 0" type="primary" formType="submit">Submit</button>
+				<button style="margin: 30rpx 0" formType="reset">Reset</button>
+			</view>
+		</form>
+	</view>
+	<view class="content-de" wx:if="{{showFlag=='3'}}">
+		cut
+	</view>
+</view>

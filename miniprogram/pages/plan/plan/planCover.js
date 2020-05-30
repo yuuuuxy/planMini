@@ -11,17 +11,23 @@ Page({
    * 页面的初始数据
    */
   data: {
+    id:'',
     ec: {
       lazyLoad: true
     },
     weights: [
-    ],
+    ],//图表和列表展示数据
+    type:'1'//1 add汇总类需要有未完成部分和溢出部分
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
+  onLoad: function (options) {
+    let id = options.id;
+    this.setData({
+      id:id
+    })
     this.getData()
     this.piechartsComponnet = this.selectComponent('#mychart-dom-bar'); //饼图
 
@@ -59,17 +65,32 @@ Page({
       const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('weight').where({
-        _openid: this.data.openid
+        _id: this.data.id
       }).get({
         success: res => {
-          let resu = res.data[0].weights;
+          let resCurr = res.data[0];
+          let resu = resCurr.weights;
+          let unExe = {};
+          let total = resCurr.total;
+          let plantype = resCurr.plantype;
           resu.map((item) => {
             let datecurr = item.rdate;
             item.name = datecurr.getFullYear() + '/' + datecurr.getMonth() + '/' + datecurr.getDate();
             item.value = item.rWeight;
+            total-=item.value;
           })
+          unExe.name="未实现";
+          unExe.value = total;
+          if(total<0){
+            unExe.name="超出目标";
+            unExe.value *=-1;
+          }
+          resu.push(unExe)
+          console.log(resu)
           this.setData({
-            weights: resu
+            weights : resu,
+            type : plantype,
+            title :res.data[0].title
           })
           this.initChart();
         },

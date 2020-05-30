@@ -1,13 +1,13 @@
 <wxs src="../.././../filter/index.wxs" module="filter" />
 <view>
-	<text class="title">周计划(最终计划)</text>
+	<text class="title">{{title}}</text>
 	<view class="pic">
 		<ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}" dataWeight ="{{ dataWeight }}"></ec-canvas>
 	</view>
 	<view class="history">
 		history detail
 		<view wx:for="{{weights}}" class="item">
-      {{item.name}}: {{item.rWeight}}
+      {{item.name}}: {{item.value}}
     </view>
 	</view>
 </view>

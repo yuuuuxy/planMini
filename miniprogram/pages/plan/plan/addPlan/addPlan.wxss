@@ -1,0 +1,38 @@
+page {
+  height: 100%;
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+}
+.content-de {
+  height: calc(100% - 10px);
+  width: 80%;
+  margin: auto;
+}
+.flex {display: flex; justify-content: space-between;}
+.btn {
+  text-align: center;
+  height: 200px;
+  line-height: 200px;
+  width: 200px;
+  border-radius: 200px;
+  margin: 10px auto;
+}
+
+.add {
+  color: white;
+  border: 1px solid rgb(121, 220, 221);
+  background-color: lightblue;
+}
+
+.cut {
+  color: white;
+  border: 1px solid pink;
+  background-color: lightpink;
+}
+input {
+ height: 30px;
+ border: 1px solid grey;
+}

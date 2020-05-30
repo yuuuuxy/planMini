@@ -1,0 +1,7 @@
+/* pages/plan/plan/planList/planList.wxss */
+li {
+  display: block;
+  height: 50px;
+  line-height: 80px;
+  border-top: 1px solid lightpink;
+}
