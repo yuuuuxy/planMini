@@ -1,0 +1,6 @@
+/* pages/myFirstPage/detail/detail.wxss */
+span {
+  margin: 5px;
+  font-size: larger;
+  font-weight: bold;
+}

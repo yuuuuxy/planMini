@@ -1,1 +1,22 @@
 /* pages/myFirstPage/myFirstPage.wxss */
+.center {
+  width: 100%;
+  box-sizing: border-box;
+}
+.pos {
+  height: 50px;
+}
+.bottom-btn {
+  background-color: white;
+  box-sizing: border-box;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px dotted lightgrey;
+  display: flex;
+  justify-content: space-around;
+}
+.bottom-btn button{
+
+}

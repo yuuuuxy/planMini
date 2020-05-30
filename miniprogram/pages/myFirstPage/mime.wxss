@@ -1,0 +1,11 @@
+/* pages/myFirstPage/mime.wxss */
+ul li {
+  height: 30px;
+  width: 100%;
+  margin: 5px 0;
+  border: 1px solid grey;
+  border-radius: 3px;
+  background-color: lightgrey;
+  display: block;
+  text-align: center;
+}

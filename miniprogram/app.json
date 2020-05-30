@@ -1,7 +1,11 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/plan/plan/planCover",
     "pages/myFirstPage/myFirstPage",
+    "pages/index/index",
+    "pages/myFirstPage/recordWeight",
+    "pages/myFirstPage/mime",
+    "pages/myFirstPage/detail/detail",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
@@ -23,5 +27,12 @@
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
-  "style": "v2"
+  "style": "v2",
+  "tabBar": {
+    "list": [
+      { "text": "Tab1", "pagePath": "pages/index/index" },
+      { "text": "Tab2", "pagePath": "pages/myFirstPage/myFirstPage" },
+      { "text": "Tab3", "pagePath": "pages/myFirstPage/mime" }
+    ]
+  }
 }

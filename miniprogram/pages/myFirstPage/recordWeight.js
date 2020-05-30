@@ -1,26 +1,23 @@
-// pages/myFirstPage/myFirstPage.js
+// pages/myFirstPage/recordWeight.js
 Page({
-  changetheworld: function (event) {
-    this.setData({
-      flag: !this.data.flag
-    })
-  },
-  gotoWeight: function (event) {
-    wx.navigateTo({
-      url: '/pages/myFirstPage/recordWeight',
-    })
-  }, gotoMy: function (event) {
-    wx.navigateTo({
-      url: '/pages/myFirstPage/mime',
-    })
+  save: function () {
+    if (true) {
+      wx.showToast({
+        title: '成功',
+        icon: 'success',
+        duration: 1000
+      })
+
+    }
   },
   /**
    * 页面的初始数据
    */
   data: {
-    flag: true,
-    msg: ['this is my first page msg', 'en heng?'],
-    btnMsg: ['sure?', 'ok Iknow']
+    calendarConfig: {
+      // 配置内置主题
+      theme: 'elegant'
+    }
   },
 
   /**

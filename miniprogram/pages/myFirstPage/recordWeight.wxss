@@ -1,0 +1,7 @@
+/* pages/myFirstPage/recordWeight.wxss */
+.weight-css{
+  height: 50px;
+  width: 120px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}

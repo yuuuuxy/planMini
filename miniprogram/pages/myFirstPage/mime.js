@@ -1,26 +1,15 @@
-// pages/myFirstPage/myFirstPage.js
+// pages/myFirstPage/mime.js
 Page({
-  changetheworld: function (event) {
-    this.setData({
-      flag: !this.data.flag
-    })
-  },
-  gotoWeight: function (event) {
+  getHistoryWeight: function (event) {
     wx.navigateTo({
-      url: '/pages/myFirstPage/recordWeight',
-    })
-  }, gotoMy: function (event) {
-    wx.navigateTo({
-      url: '/pages/myFirstPage/mime',
+      url: './detail/detail',
     })
   },
   /**
    * 页面的初始数据
    */
   data: {
-    flag: true,
-    msg: ['this is my first page msg', 'en heng?'],
-    btnMsg: ['sure?', 'ok Iknow']
+
   },
 
   /**

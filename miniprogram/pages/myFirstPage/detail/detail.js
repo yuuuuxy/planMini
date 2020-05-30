@@ -1,33 +1,43 @@
-// pages/myFirstPage/myFirstPage.js
+// pages/myFirstPage/detail/detail.js
 Page({
-  changetheworld: function (event) {
-    this.setData({
-      flag: !this.data.flag
-    })
-  },
-  gotoWeight: function (event) {
-    wx.navigateTo({
-      url: '/pages/myFirstPage/recordWeight',
-    })
-  }, gotoMy: function (event) {
-    wx.navigateTo({
-      url: '/pages/myFirstPage/mime',
-    })
+  back: function (event) {
+    var pages = getCurrentPages();
+    debugger
   },
   /**
    * 页面的初始数据
    */
   data: {
-    flag: true,
-    msg: ['this is my first page msg', 'en heng?'],
-    btnMsg: ['sure?', 'ok Iknow']
+    calendarConfig: {
+      // 配置内置主题
+      theme: 'elegant'
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+    const db = wx.cloud.database()//
+    db.collection('weight').where({
+     name:'manman'
+    }).get({
+      success: function(res) {
+        // res.data 是包含以上定义的两条记录的数组
+        console.log(res.data)
+      }
+    })
 
+    const weight = db.collection('weight')
+    // const todo = db.collection('weight')
+    //   .get({
+    //     success: function (res) {
+    //       // res.data 包含该记录的数据
+    //       debugger
+    //       console.log(res.data)
+    //     },
+    //   })
   },
 
   /**

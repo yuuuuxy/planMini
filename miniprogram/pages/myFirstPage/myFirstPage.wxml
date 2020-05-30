@@ -1,7 +1,5 @@
-<!--pages/myFirstPage/myFirstPage.wxml-->
-<view wx:if="{{flag==true}}">{{msg[0]}}</view>
-<view wx:elif="{{!flag==true}}">{{msg[1]}}</view>
-<button bindtap="changetheworld">
-	<text wx:if="{{flag}}">{{btnMsg[0]}}</text>
-  <text wx:else> {{btnMsg[1]}} </text>
-</button>
+<view>
+	<view class="center"> center area center area center area center area center area center area 123123 </view>
+	<view class="pos"></view>
+	<view class="bottom-btn"> <button bindtap="gotoWeight">+</button> <button bindtap="gotoMy">my</button> </view>
+</view>

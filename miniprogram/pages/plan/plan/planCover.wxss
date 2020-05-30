@@ -1,0 +1,19 @@
+/* pages/plan/plan/planCover.wxss */
+.title {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.pic {
+  border: 1px solid black;
+  width: 80%;
+  height: 80vw;
+  margin: 0 auto;
+}
+.history {
+  text-align: center;
+}
+.history .item {
+  height: 30px;
+  border-bottom:1px solid cadetblue;
+}

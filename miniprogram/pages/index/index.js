@@ -11,9 +11,13 @@ Page({
   },
 
   onLoad: function() {
+    wx.redirectTo({
+      url: '../myFirstPage/myFirstPage',
+    })
     if (!wx.cloud) {
       wx.redirectTo({
-        url: '../chooseLib/chooseLib',
+        // url: '../chooseLib/chooseLib',../myFirstPage/myFirstPage
+        url: '../myFirstPage/myFirstPage',
       })
       return
     }

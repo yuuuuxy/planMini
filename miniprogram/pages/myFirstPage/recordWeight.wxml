@@ -1,0 +1,2 @@
+today:<input class="weight-css"></input>
+<button bindtap="save">save</button>
