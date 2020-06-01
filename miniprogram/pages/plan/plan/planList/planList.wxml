@@ -1,7 +1,13 @@
 <view>
 	<ul>
 		<li wx:for="{{planList}}">
-      <text bindtap="showDetail" data-id="{{item._id}}">{{item.title}}</text>
-      </li>
+			<text bindtap="showDetail" data-id="{{item._id}}">{{item.title}}</text>
+		</li>
 	</ul>
+
+</view>
+<view class="bottom fixed">
+	<view class="bottom-container">
+		<image bindtap="toAdd" style="width: 40px; height: 40px;" mode="{{addpic.mode}}" src="{{addpic.addpicurl}}"></image>
+	</view>
 </view>

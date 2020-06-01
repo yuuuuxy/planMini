@@ -5,3 +5,15 @@ li {
   line-height: 80px;
   border-top: 1px solid lightpink;
 }
+.fixed{
+  position: fixed;
+  height: 60px;
+  line-height: 60px;
+}
+.bottom{
+  width: 100%;
+  bottom: 0;
+}
+.bottom-container{
+  text-align: center;
+}

@@ -4,8 +4,8 @@
 	<view class="pic">
 		<ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}" dataWeight ="{{ dataWeight }}"></ec-canvas>
 	</view>
+	<button bindtap="record">record</button>
 	<view class="history">
-		history detail
 		<view wx:for="{{weights}}" class="item">
       {{item.name}}: {{item.value}}
     </view>

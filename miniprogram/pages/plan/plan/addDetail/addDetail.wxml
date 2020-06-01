@@ -1,0 +1,7 @@
+<view>
+	<form catchsubmit="saveDetail">
+		记录此时此刻的状态
+		<input type="number" name="rWeight"></input>
+		<button form-type="submit" type="primary" plain="true">save</button>
+	</form>
+</view>

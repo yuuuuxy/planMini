@@ -1,0 +1,25 @@
+{
+  "name": "-savingmoney",
+  "version": "1.0.0",
+  "description": "这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuuuuxy/planMini.git"
+  },
+  "keywords": [
+    "yuxiaoyu951"
+  ],
+  "author": "ariel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuuuuxy/planMini/issues"
+  },
+  "homepage": "https://github.com/yuuuuxy/planMini#readme",
+  "dependencies": {
+    "wx-server-sdk": "^2.0.4"
+  }
+}

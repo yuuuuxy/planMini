@@ -5,7 +5,6 @@
 <view class="content" wx:else>
 	<view class="flex">
 		<view class="retbtn" data-showFlag="{{1}}" bindtap="changeFlag">返回</view>
-
 	</view>
 	<view class="content-de" wx:if="{{showFlag=='2'}}">
 		<form id="addForm" catchsubmit="formSubmit" catchreset="formReset">

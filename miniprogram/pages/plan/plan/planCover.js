@@ -24,7 +24,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let id = options.id;
+    let id = options.id?options.id:'463448e05ec9f402001d7920267731ed';
     this.setData({
       id:id
     })
@@ -60,6 +60,14 @@ Page({
       pieChart.setOption(this.getOption(chart));
       return pieChart;
     })
+  },record(e){
+    wx.navigateTo({
+      url: '/pages/plan/plan/addDetail/addDetail?id='+this.data.id,
+      complete: (res) => {},
+      events: e,
+      fail: (res) => {},
+      success: (result) => {},
+    })
   },
       getData(){
       const db = wx.cloud.database()
@@ -75,7 +83,7 @@ Page({
           let plantype = resCurr.plantype;
           resu.map((item) => {
             let datecurr = item.rdate;
-            item.name = datecurr.getFullYear() + '/' + datecurr.getMonth() + '/' + datecurr.getDate();
+            item.name = datecurr;
             item.value = item.rWeight;
             total-=item.value;
           })
@@ -86,7 +94,6 @@ Page({
             unExe.value *=-1;
           }
           resu.push(unExe)
-          console.log(resu)
           this.setData({
             weights : resu,
             type : plantype,

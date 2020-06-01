@@ -5,7 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    planList:[]
+    planList: [],
+    addpic: {
+      mode: 'aspectFit',
+      text: 'scaleToFill：不保持纵横比缩放图片，使图片完全适应',
+      addpicurl: '/images/add.png'
+    }
   },
   getDataList() {
     const db = wx.cloud.database()
@@ -14,7 +19,7 @@ Page({
     }).get({
       success: (res => {
         this.setData({
-          planList:res.data
+          planList: res.data
         })
       }),
       fail: err => {
@@ -27,11 +32,16 @@ Page({
 
     })
   },
-  showDetail(e){
+  showDetail(e) {
     let id = e.target.dataset.id;
     wx.navigateTo({
-       url: '/pages/plan/plan/planCover?id='+id
-       })
+      url: '/pages/plan/plan/planCover?id=' + id
+    })
+  },
+  toAdd(e){
+    wx.navigateTo({
+      url: '/pages/plan/plan/addPlan/addPlan',
+    })
   },
   /**
    * 生命周期函数--监听页面加载
