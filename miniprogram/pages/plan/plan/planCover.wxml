@@ -1,13 +1,13 @@
 <wxs src="../.././../filter/index.wxs" module="filter" />
 <view>
-	<text class="title">{{title}}</text>
+	<text class="title">{{title}}({{days}}*{{eve}}{{unit}})</text>
 	<view class="pic">
 		<ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}" dataWeight ="{{ dataWeight }}"></ec-canvas>
 	</view>
 	<button bindtap="record">record</button>
 	<view class="history">
 		<view wx:for="{{weights}}" class="item">
-      {{item.name}}: {{item.value}}
+      {{item.name}}: {{item.rWeight}}
     </view>
 	</view>
 </view>

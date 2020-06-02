@@ -1,4 +1,5 @@
 // pages/plan/plan/addDetail/addDetail.js
+let app = getApp();
 Page({
 
   /**
@@ -13,8 +14,31 @@ Page({
    */
   onLoad: function (options) {
     let id = options.id;
+    let now = new Date();
+    let date = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+    let time = now.getHours() + ":" + now.getMinutes();
     this.setData({
-      id: id
+      id: id,
+      time: time,
+      date: date,
+      eve: options.eve,
+      maxv: options.maxv,
+      weightVal: undefined
+    })
+  }, weightChange(e) {
+    let val = e.detail.value;
+    this.setData({
+      weightVal: val
+    })
+  }, dateChange(e) {
+    let val = e.detail.value;
+    this.setData({
+      date: val
+    })
+  }, timeChange(e) {
+    let val = e.detail.value;
+    this.setData({
+      time: val
     })
   },
   saveDetail(e) {
@@ -22,7 +46,8 @@ Page({
     let formData = e.detail.value;
     let obj = {}
     obj.rWeight = formData.rWeight;
-    obj.rdate = lastmodified;
+    obj.rdate = this.data.date;
+    obj.rtime = this.data.time;
     wx.cloud.callFunction({
       name: 'addPlanDetail',
       data: {
@@ -32,7 +57,7 @@ Page({
       },
       success: res => {
         wx.showToast({
-          title: '复制成功',
+          title: '保存成功',
         })
       }
     });

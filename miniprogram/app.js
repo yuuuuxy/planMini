@@ -22,5 +22,20 @@ App({
       return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     }
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-  }
+  },
+  addTime: function (date, x, f) {//日期加x天
+    if (f === 'd') {
+      console.log(date, '日期加了', x, 'days');
+    } else if (f === 't') {//时间
+    }
+  },
+  getDaysFromNow: function (date) {
+    let now = new Date();
+    let startDate = Date.parse(date);
+    let endDate = Date.parse(now);
+    let days = (endDate - startDate) / (1 * 24 * 60 * 60 * 1000);
+    // alert(days);
+    return Math.round(days);
+  },
+
 })

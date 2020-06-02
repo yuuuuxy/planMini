@@ -3,7 +3,12 @@ li {
   display: block;
   height: 50px;
   line-height: 80px;
-  border-top: 1px solid lightpink;
+  border-bottom: 1px solid lightpink;
+  border-radius: 15px;
+  padding-left: 15px;
+}
+li:hover{
+  background-color: lightpink;
 }
 .fixed{
   position: fixed;

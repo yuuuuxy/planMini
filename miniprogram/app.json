@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/plan/plan/planCover",
-    "pages/index/index",
     "pages/plan/plan/planList/planList",
+    "pages/plan/plan/planCover",
     "pages/plan/plan/addDetail/addDetail",
+    "pages/index/index",
     "pages/plan/plan/addPlan/addPlan",
     "pages/myFirstPage/myFirstPage",
     "pages/myFirstPage/recordWeight",
