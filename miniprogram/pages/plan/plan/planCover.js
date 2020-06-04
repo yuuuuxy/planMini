@@ -22,7 +22,13 @@ Page({
     unit: '',
     createTime: '',
     total: 0,
-    remaindate:0
+    remaindate: 0,
+    addpic: {
+      mode: 'aspectFit',
+      text: 'scaleToFill：不保持纵横比缩放图片，使图片完全适应',
+      addpicurl: '/images/add.png',
+      deletepicurl: '/images/delete2.png'
+    }
   },
 
   /**
@@ -99,7 +105,7 @@ Page({
         let unit = resCurr.unit;
         let createTime = resCurr.createTime;
         let fromnow = app.getDaysFromNow(createTime);
-        let expect= resCurr.expect;
+        let expect = resCurr.expect;
         let remaindate = (expect - Number(fromnow)).toFixed(1);
         resu.map((item) => {
           let datecurr = item.rdate + ' ' + item.rtime;
@@ -125,7 +131,7 @@ Page({
           unit: unit,
           createTime: createTime,
           total: resCurr.total,
-          remaindate:remaindate
+          remaindate: remaindate
         })
         this.initChart();
       },

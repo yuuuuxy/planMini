@@ -15,4 +15,6 @@
 .history .item {
   height: 30px;
   border-bottom:1px solid cadetblue;
+  display: flex;
+  justify-content: space-between;
 }
