@@ -2,12 +2,15 @@
 	<ul>
 		<li wx:for="{{planList}}">
 			<text bindtap="showDetail" data-id="{{item._id}}">{{item.title}}</text>
+			<view bindtap="deletePlan" data-id="{{item._id}}" data-plan="{{item.title}}">
+				<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>
+			</view>
 		</li>
 	</ul>
 
 </view>
-<view class="bottom fixed">
-	<view class="bottom-container">
-		<image bindtap="toAdd" style="width: 40px; height: 40px;" mode="{{addpic.mode}}" src="{{addpic.addpicurl}}"></image>
-	</view>
+<view style="height:80px">
+</view>
+<view class="bottom-container fixed">
+	<image bindtap="toAdd" style="width: 40px; height: 40px;" mode="{{addpic.mode}}" src="{{addpic.addpicurl}}"></image>
 </view>

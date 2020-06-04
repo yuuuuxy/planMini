@@ -98,7 +98,9 @@ Page({
         let plantype = resCurr.plantype;
         let unit = resCurr.unit;
         let createTime = resCurr.createTime;
-        let remaindate = app.getDaysFromNow(createTime);
+        let fromnow = app.getDaysFromNow(createTime);
+        let expect= resCurr.expect;
+        let remaindate = (expect - Number(fromnow)).toFixed(1);
         resu.map((item) => {
           let datecurr = item.rdate + ' ' + item.rtime;
           item.name = datecurr;
@@ -108,11 +110,11 @@ Page({
         })
         unExe.name = "未实现";
         unExe.value = total;
-        unExe.rWeight = total + unit;
         if (total < 0) {
           unExe.name = "超出目标";
           unExe.value *= -1;
         }
+        unExe.rWeight = unExe.value + unit;
         resu.push(unExe)
         this.setData({
           weights: resu,

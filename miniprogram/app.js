@@ -34,8 +34,7 @@ App({
     let startDate = Date.parse(date);
     let endDate = Date.parse(now);
     let days = (endDate - startDate) / (1 * 24 * 60 * 60 * 1000);
-    // alert(days);
-    return Math.round(days);
+    return days.toFixed(1);
   },
-
+  
 })

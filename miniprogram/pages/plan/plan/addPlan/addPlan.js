@@ -6,14 +6,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showFlag:'2'//展示页面
+    showFlag: '2'//展示页面
   },
-  changeFlag(event){
+  changeFlag(event) {
     this.setData({
-      showFlag:event.target.dataset.showflag
+      showFlag: event.target.dataset.showflag
     })
   },
-  formSubmit(e){
+  formSubmit(e) {
     let formData = e.detail.value;
     let createTime = new Date();
     console.log(createTime)
@@ -22,12 +22,12 @@ Page({
     formData._id = app.guid();
     const db = wx.cloud.database()
     db.collection('weight').add({
-      data:formData
+      data: formData
     })
-    .then(res => {
-      console.log(res)
-    })
-    .catch(console.error)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(console.error)
     wx.showToast({
       title: '成功',
       icon: 'success',
@@ -66,7 +66,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    let pages = getCurrentPages();
+    let last = pages[pages.length - 2];
+    last.getDataList();
   },
 
   /**

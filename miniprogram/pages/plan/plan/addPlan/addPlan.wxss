@@ -16,11 +16,14 @@ page {
   text-align: center;
   height: 200px;
   line-height: 200px;
-  width: 200px;
   border-radius: 200px;
   margin: 10px auto;
 }
-
+.btn-area{
+  position: fixed;
+  bottom: 10px;
+  width: 80%;
+}
 .add {
   color: white;
   border: 1px solid rgb(121, 220, 221);
@@ -33,6 +36,12 @@ page {
   background-color: lightpink;
 }
 input {
- height: 30px;
- border: 1px solid grey;
+  height: 30px;
+  border-bottom: 1px solid lightblue;
+  border-radius: 8px;
+  padding-left: 10px;
+}
+
+.title {
+  padding: 10px 5px;
 }

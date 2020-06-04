@@ -9,7 +9,8 @@ Page({
     addpic: {
       mode: 'aspectFit',
       text: 'scaleToFill：不保持纵横比缩放图片，使图片完全适应',
-      addpicurl: '/images/add.png'
+      addpicurl: '/images/add.png',
+      deletepicurl: '/images/delete.png'
     }
   },
   getDataList() {
@@ -38,7 +39,33 @@ Page({
       url: '/pages/plan/plan/planCover?id=' + id
     })
   },
-  toAdd(e){
+  deletePlan(e) {
+    let that = this;
+    let info = e.currentTarget.dataset;
+    let id = info.id;
+    let title = info.plan;
+    let tips = '删除"' + title + '"嘛？';
+    wx.showModal({
+      title: '提示',
+      content: tips,
+      success(res) {
+        if (res.confirm) {
+          that.handleDeletePlan(id);
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  handleDeletePlan(id) {
+    let that = this;
+    //数据库删除操作
+    const db = wx.cloud.database()
+    db.collection('weight').doc(id).remove()
+    .then(that.getDataList)
+    .catch(console.error)
+  },
+  toAdd(e) {
     wx.navigateTo({
       url: '/pages/plan/plan/addPlan/addPlan',
     })
