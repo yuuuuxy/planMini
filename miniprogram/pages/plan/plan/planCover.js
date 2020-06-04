@@ -89,6 +89,28 @@ Page({
       fail: (res) => { },
       success: (result) => { },
     })
+  }, deleteDetail(e) {//删除一条明细
+    let detailid = e.currentTarget.dataset.detailid;
+    let tips = '删除这条嘛？';
+    let that = this;
+    wx.showModal({
+      title: '提示',
+      content: tips,
+      success(res) {
+        if (res.confirm) {
+          that.handleDeleteDetail(detailid);
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+
+  }, handleDeleteDetail(id) {
+    //数据库删除功能
+    wx.showToast({
+      icon: 'none',
+      title: '删除成功' + id
+    })
   },
   getData() {
     const db = wx.cloud.database()

@@ -8,7 +8,7 @@
 	<view class="history">
 		<view wx:for="{{weights}}" class="item">
 			<text bindtap="showDetail">{{item.name}}: {{item.rWeight}}</text>
-			<view bindtap="deletePlan" data-id="{{item._id}}" data-plan="{{item.title}}">
+			<view bindtap="deleteDetail" data-detailid="{{item.detailid}}">
 				<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>
 			</view>
     </view>

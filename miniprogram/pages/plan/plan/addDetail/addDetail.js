@@ -48,6 +48,7 @@ Page({
     obj.rWeight = formData.rWeight;
     obj.rdate = this.data.date;
     obj.rtime = this.data.time;
+    obj.detailid = app.guid();
     wx.cloud.callFunction({
       name: 'addPlanDetail',
       data: {
