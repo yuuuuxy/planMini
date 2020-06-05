@@ -1,6 +1,6 @@
 <view>
 	<ul>
-		<li wx:for="{{planList}}">
+		<li wx:for="{{planList}}" wx:key="_id">
 			<text bindtap="showDetail" data-id="{{item._id}}">{{item.title}}</text>
 			<view bindtap="deletePlan" data-id="{{item._id}}" data-plan="{{item.title}}">
 				<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>

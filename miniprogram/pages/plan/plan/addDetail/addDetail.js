@@ -62,43 +62,6 @@ Page({
         })
       }
     });
-    // const cloud = require('wx-server-sdk')
-    // cloud.init()
-
-    // const db = wx.cloud.database()
-    // const _ = db.command
-    // db.collection('weight').where({
-    //   _id:this.data.id
-    // }).update({
-    //   // data 传入需要局部更新的数据
-    //   data: {
-    //     lastModifydate:lastmodified,
-    //     weights:_.push(obj)
-    //   },
-    //   success: console.log,
-    //   fail: console.error
-    // })
-    // exports.main = async (event, context) => {
-    //   const { OPENID } = cloud.getWXContext()
-    //   const userCollection = db.collection('weight')//选取collection
-    //   const thisID = userCollection.where({ '_id': this.data.id })
-
-    //   return thisID.get().then(res => {
-    //     debugger
-    //     let num1 = userCollection.add({
-    //       data: {
-    //         weights: _.push(obj)
-    //       }
-    //     })
-    //     let num2 = thisID.update({
-    //       data: {
-    //         lastModifydate: lastmodified,
-    //       }
-    //     })
-    //     return num1 + num2
-    //   }
-    //   )
-    // }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

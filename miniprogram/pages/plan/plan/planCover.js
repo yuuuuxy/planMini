@@ -55,7 +55,7 @@ Page({
           text: this.data.remaindate,
           textAlign: "center",
           fill: "#cecece",
-          fontSize: 60
+          fontSize: 40
         }
       },
       series: [{
@@ -91,26 +91,38 @@ Page({
     })
   }, deleteDetail(e) {//删除一条明细
     let detailid = e.currentTarget.dataset.detailid;
-    let tips = '删除这条嘛？';
+    let rWeight = e.currentTarget.dataset.rweight;
+    let tips = '删除' + rWeight + '嘛？';
     let that = this;
     wx.showModal({
       title: '提示',
       content: tips,
       success(res) {
         if (res.confirm) {
-          that.handleDeleteDetail(detailid);
+          that.handleDeleteDetail(detailid, rWeight);
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
       }
     })
 
-  }, handleDeleteDetail(id) {
+  }, handleDeleteDetail(detailidc, rWeight) {
+    let currId = this.data.id;
     //数据库删除功能
-    wx.showToast({
-      icon: 'none',
-      title: '删除成功' + id
-    })
+    wx.cloud.callFunction({
+      name: 'deletePlanDetail',
+      data: {
+        currId: currId,
+        detailid: detailidc,
+      },
+      success: res => {
+        wx.showToast({
+          title: '删除成功',
+        })
+        this.getData();
+      }
+    });
+
   },
   getData() {
     const db = wx.cloud.database()
@@ -124,11 +136,12 @@ Page({
         let unExe = {};
         let total = resCurr.total;
         let plantype = resCurr.plantype;
-        let unit = resCurr.unit;
+        let unit = resCurr.unit ? resCurr.unit : '';
         let createTime = resCurr.createTime;
         let fromnow = app.getDaysFromNow(createTime);
         let expect = resCurr.expect;
         let remaindate = (expect - Number(fromnow)).toFixed(1);
+        remaindate = (remaindate < 0) ? '过期' : remaindate;
         resu.map((item) => {
           let datecurr = item.rdate + ' ' + item.rtime;
           item.name = datecurr;
