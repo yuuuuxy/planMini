@@ -1,6 +1,6 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
-cloud.init()
+cloud.init({ secretId: 'AKIDd196nEyiOqmTvCQxRggSzAA0Zswi4yVo', secretKey: 'Ot99tQAk4lB6k8GI3cuv62ipeGciXsxm'})
 const db = cloud.database()
 const _ = db.command
 // 云函数入口函数
