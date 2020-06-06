@@ -5,17 +5,20 @@ page {
 .content {
   height: 100%;
   width: 100%;
+  flex-direction: column;
 }
 .content-de {
   height: calc(100% - 10px);
   width: 80%;
   margin: auto;
 }
-.flex {display: flex; justify-content: space-between;}
+.flex {display: flex; justify-content: space-around;}
 .btn {
+  width: 60%;
   text-align: center;
-  height: 200px;
-  line-height: 200px;
+  height: 60vw;
+  line-height: 60vw;
+  border: 1px solid;
   border-radius: 200px;
   margin: 10px auto;
 }

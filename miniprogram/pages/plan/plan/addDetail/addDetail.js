@@ -42,13 +42,14 @@ Page({
     })
   },
   saveDetail(e) {
-    let lastmodified = new Date();
+    let lastmodified = new Date().getTime();
     let formData = e.detail.value;
     let obj = {}
     obj.rWeight = formData.rWeight;
     obj.rdate = this.data.date;
     obj.rtime = this.data.time;
     obj.detailid = app.guid();
+    
     wx.cloud.callFunction({
       name: 'addPlanDetail',
       data: {
@@ -60,6 +61,13 @@ Page({
         wx.showToast({
           title: '保存成功',
         })
+      },
+      fail: err => {
+        console.log(err)
+        // handle error
+      },
+      complete: () => {
+        // ...
       }
     });
   },

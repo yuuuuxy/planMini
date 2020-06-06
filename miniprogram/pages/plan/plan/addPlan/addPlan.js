@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showFlag: '2'//展示页面
+    showFlag: '1'//展示页面
   },
   changeFlag(event) {
     this.setData({

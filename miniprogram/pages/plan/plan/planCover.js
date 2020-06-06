@@ -162,7 +162,7 @@ Page({
           type: plantype,
           title: resCurr.title,
           days: resCurr.expect,
-          eve: resCurr.total / resCurr.expect,
+          eve: (resCurr.total / resCurr.expect).toFixed(2),
           unit: unit,
           createTime: createTime,
           total: resCurr.total,
