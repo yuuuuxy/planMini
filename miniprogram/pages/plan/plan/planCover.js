@@ -142,7 +142,8 @@ Page({
         let expect = resCurr.expect;
         let remaindate = (expect - Number(fromnow)).toFixed(1);
         remaindate = (remaindate < 0) ? '过期' : remaindate;
-        resu.map((item) => {
+        let arr = JSON.parse(resu);
+        arr.map((item) => {
           let datecurr = item.rdate + ' ' + item.rtime;
           item.name = datecurr;
           item.value = item.rWeight;
@@ -156,9 +157,9 @@ Page({
           unExe.value *= -1;
         }
         unExe.rWeight = unExe.value + unit;
-        resu.push(unExe)
+        arr.push(unExe)
         this.setData({
-          weights: resu,
+          weights: arr,
           type: plantype,
           title: resCurr.title,
           days: resCurr.expect,

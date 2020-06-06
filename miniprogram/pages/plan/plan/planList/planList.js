@@ -62,8 +62,8 @@ Page({
     //数据库删除操作
     const db = wx.cloud.database()
     db.collection('weight').doc(id).remove()
-    .then(that.getDataList)
-    .catch(console.error)
+      .then(that.getDataList)
+      .catch(console.error)
   },
   toAdd(e) {
     wx.navigateTo({
@@ -109,7 +109,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getDataList()
   },
 
   /**
