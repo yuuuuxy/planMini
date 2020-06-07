@@ -1,5 +1,5 @@
-<view class="content">
-	<form catchsubmit="saveDetail">
+<form catchsubmit="saveDetail">
+	<view class="content">
 		<text class="title">	记录此时此刻的状态叭</text>
 		<input type="number" name="rWeight" value="{{weightVal}}" placeholder="每天均值是{{eve}}幺~" class="weui-input posi">
 		</input>
@@ -15,10 +15,11 @@
 		</picker>
 		这个滑块可以代替手输
 		<view class="body-view">
-				<slider bindchange="weightChange" max="{{maxv}}" show-value/>
+			<slider bindchange="weightChange" max="{{maxv}}" show-value />
 		</view>
-		<view class="btn-area fixed">
-			<button form-type="submit" type="primary" plain="true">保存</button>
+		
+	</view>
+	<view class="fixed">
+			<button form-type="submit" class="btn" type="primary" plain="true">保存</button>
 		</view>
-	</form>
-</view>
+</form>

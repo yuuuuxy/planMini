@@ -19,23 +19,27 @@ Page({
     type: '1',//1 add汇总类需要有未完成部分和溢出部分
     days: 0,
     eve: 0,
+    eveforecast: 0,//日均预估
     unit: '',
     createTime: '',
     total: 0,
     remaindate: 0,
+    remaindates:0,//距离过期天数，复数代表已经过期
     addpic: {
       mode: 'aspectFit',
-      text: 'scaleToFill：不保持纵横比缩放图片，使图片完全适应',
       addpicurl: '/images/add.png',
-      deletepicurl: '/images/delete2.png'
-    }
+      pulltoppicurl: '/images/pulltop.png'
+    },
+    overWeight:0,//超出目标值
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let id = options.id ? options.id : '463448e05ec9f402001d7920267731ed';
+    let finishedid='463448e05ec9f402001d7920267731ed';
+    let unfinishedid='20c07e92-1622-3e6f-0aa2-abb091072e71';
+    let id = options.id ? options.id : unfinishedid;
     this.setData({
       id: id
     })
@@ -139,10 +143,10 @@ Page({
         let unit = resCurr.unit ? resCurr.unit : '';
         let createTime = resCurr.createTime;
         let fromnow = app.getDaysFromNow(createTime);
-        let expect = resCurr.expect;
-        let remaindate = (expect - Number(fromnow)).toFixed(1);
-        remaindate = (remaindate < 0) ? '过期' : remaindate;
-        let arr = JSON.parse(resu);
+        let expect = resCurr.expect; 
+        let remaindates = (expect - Number(fromnow)).toFixed(1);
+        let remaindate = (remaindates < 0) ? '过期' : remaindates;
+        let arr = resu;
         arr.map((item) => {
           let datecurr = item.rdate + ' ' + item.rtime;
           item.name = datecurr;
@@ -151,13 +155,15 @@ Page({
           item.rWeight += unit;
         })
         unExe.name = "未实现";
-        unExe.value = total;
+        unExe.value = total; 
+        let eveforecast = (Number(total) / Number(remaindates)).toFixed(2) + unit;
         if (total < 0) {
           unExe.name = "超出目标";
           unExe.value *= -1;
         }
         unExe.rWeight = unExe.value + unit;
-        arr.push(unExe)
+       let overWeight = unExe.rWeight;
+        arr.push(unExe);
         this.setData({
           weights: arr,
           type: plantype,
@@ -167,7 +173,10 @@ Page({
           unit: unit,
           createTime: createTime,
           total: resCurr.total,
-          remaindate: remaindate
+          remaindate: remaindate,
+          remaindates: remaindates,
+          eveforecast: eveforecast,
+          overWeight:overWeight
         })
         this.initChart();
       },
@@ -218,7 +227,12 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    wx.navigateTo({
+      url: '/pages/plan/plan/planHistory/planHistory?weights=' + JSON.stringify(this.data.weights),
+      complete: (res) => { },
+      fail: (res) => { },
+      success: (result) => { },
+    })
   },
 
   /**

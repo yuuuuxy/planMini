@@ -1,45 +1,21 @@
-// pages/plan/plan/addPlan.js
-var app = getApp();
+// pages/plan/plan/planHistory/planHistory.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    showFlag: '1'//展示页面
+    weights: []
   },
-  changeFlag(event) {
-    this.setData({
-      showFlag: event.target.dataset.showflag
-    })
-  },
-  formSubmit(e) {
-    let formData = e.detail.value;
-    let createTime = new Date();
-    console.log(createTime)
-    console.log(formData)
-    formData.createTime = createTime;
-    formData._id = app.guid();
-    formData.weights= [];
-    const db = wx.cloud.database()
-    db.collection('weight').add({
-      data: formData
-    })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(console.error)
-    wx.showToast({
-      title: '成功',
-      icon: 'success',
-      duration: 2000//持续的时间
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let weights = options.weights;
+    this.setData({
+      weights: JSON.parse(weights)
+    })
   },
 
   /**
@@ -67,16 +43,16 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    let pages = getCurrentPages();
-    let last = pages[pages.length - 2];
-    last.getDataList();
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.navigateBack({
+      delta: 1
+    })
   },
 
   /**

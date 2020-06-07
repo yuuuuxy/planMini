@@ -17,10 +17,9 @@
 			<view class="title"> 设定一个时间（天）</view>
 			<input type="number" name="expect"></input>
 			<input hidden name="type" value="1"></input><!-- 增加类型为1 即累加类的-->
-			<input hidden name="weights" value="[]"></input>
 			<view class="btn-area flex">
-				<button  type="primary" formType="submit">Submit</button>
-				<button formType="reset">Reset</button>
+				<button  type="primary" formType="submit">保存</button>
+				<button formType="reset">重置</button>
 			</view>
 		</form>
 	</view>

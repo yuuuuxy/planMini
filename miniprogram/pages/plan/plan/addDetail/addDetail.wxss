@@ -15,3 +15,6 @@ page {
   width: 100%;
   bottom: 15px;
 }
+.btn{
+  width: 200px;
+}

@@ -1,0 +1,8 @@
+<view class="history">
+	<view wx:for="{{weights}}" class="item" wx:key="detailid">
+		<text bindtap="showDetail">{{item.name}}: {{item.rWeight}}</text>
+		<view wx:if="{{item.detailid}}" bindtap="deleteDetail" data-detailid="{{item.detailid}}" data-rWeight="{{item.rWeight}}">
+			<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>
+		</view>
+	</view>
+</view>

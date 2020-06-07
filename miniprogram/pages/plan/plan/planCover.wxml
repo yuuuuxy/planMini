@@ -4,14 +4,14 @@
 	<view class="pic">
 		<ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}" dataWeight ="{{ dataWeight }}"></ec-canvas>
 	</view>
-	<button bindtap="record">record</button>
-	<view class="history">
-		<view wx:for="{{weights}}" class="item" wx:key="detailid">
-			<text bindtap="showDetail">{{item.name}}: {{item.rWeight}}</text>
-			<view wx:if="{{item.detailid}}" bindtap="deleteDetail" data-detailid="{{item.detailid}}"
-			data-rWeight="{{item.rWeight}}">
-				<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>
-			</view>
-    </view>
+	<button bindtap="record" type="primary" class="btn">记录</button>
+	<view class="forecast">
+		<view wx:if="{{ remaindates <0}}">已经过期啦超出目标值{{overWeight}}</view>
+		<view wx:else>以后日均{{eveforecast}}就可以完成目标啦，加油！~</view>
 	</view>
+
 </view>
+	<view class="bottom-area">
+		<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.pulltoppicurl}}"></image>
+	</view>
+	
