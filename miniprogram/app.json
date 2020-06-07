@@ -3,6 +3,7 @@
     "pages/plan/plan/planList/planList",
     "pages/plan/plan/addPlan/addPlan",
     "pages/plan/plan/planCover",
+    "pages/plan/plan/planHistory/planHistory",
     "pages/plan/plan/addDetail/addDetail",
     "pages/index/index",
     "pages/myFirstPage/myFirstPage",
