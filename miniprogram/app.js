@@ -36,5 +36,14 @@ App({
     let days = (endDate - startDate) / (1 * 24 * 60 * 60 * 1000);
     return days.toFixed(1);
   },
-  
+
+  formateDate: function (date) {
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+    var h = date.getHours() + ':';
+    var m = date.getMinutes() == 0 ? "00" : date.getMinutes();
+    var s = date.getSeconds();
+    return Y + M + D + h + m;
+  },
 })

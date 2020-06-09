@@ -24,21 +24,25 @@ Page({
     createTime: '',
     total: 0,
     remaindate: 0,
-    remaindates:0,//距离过期天数，复数代表已经过期
+    remaindates: 0,//距离过期天数，复数代表已经过期
     addpic: {
       mode: 'aspectFit',
       addpicurl: '/images/add.png',
       pulltoppicurl: '/images/pulltop.png'
     },
-    overWeight:0,//超出目标值
+    overWeight: 0,//超出目标值
+    state: '1',//1.未超出，2.已经超出计划
+    changeFlag: false,
+    subTitle: '',//副标题
+    title:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let finishedid='463448e05ec9f402001d7920267731ed';
-    let unfinishedid='20c07e92-1622-3e6f-0aa2-abb091072e71';
+    let finishedid = '463448e05ec9f402001d7920267731ed';
+    let unfinishedid = '20c07e92-1622-3e6f-0aa2-abb091072e71';
     let id = options.id ? options.id : unfinishedid;
     this.setData({
       id: id
@@ -49,6 +53,11 @@ Page({
 
   getOption: function () {
     return {
+      title: {
+        // text: '南丁格尔玫瑰图',
+        subtext: this.data.subTitle,
+        x: 'center'
+      },
       backgroundColor: "#ffffff",
       color: ["#37A2DA", "#32C5E9", "#67E0E3", "#91F2DE", "#FFDB5C", "#FF9F7F"],
       graphic: {       //图形中间文字
@@ -93,40 +102,6 @@ Page({
       fail: (res) => { },
       success: (result) => { },
     })
-  }, deleteDetail(e) {//删除一条明细
-    let detailid = e.currentTarget.dataset.detailid;
-    let rWeight = e.currentTarget.dataset.rweight;
-    let tips = '删除' + rWeight + '嘛？';
-    let that = this;
-    wx.showModal({
-      title: '提示',
-      content: tips,
-      success(res) {
-        if (res.confirm) {
-          that.handleDeleteDetail(detailid, rWeight);
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-
-  }, handleDeleteDetail(detailidc, rWeight) {
-    let currId = this.data.id;
-    //数据库删除功能
-    wx.cloud.callFunction({
-      name: 'deletePlanDetail',
-      data: {
-        currId: currId,
-        detailid: detailidc,
-      },
-      success: res => {
-        wx.showToast({
-          title: '删除成功',
-        })
-        this.getData();
-      }
-    });
-
   },
   getData() {
     const db = wx.cloud.database()
@@ -143,40 +118,49 @@ Page({
         let unit = resCurr.unit ? resCurr.unit : '';
         let createTime = resCurr.createTime;
         let fromnow = app.getDaysFromNow(createTime);
-        let expect = resCurr.expect; 
-        let remaindates = (expect - Number(fromnow)).toFixed(1);
+        let expect = resCurr.expect;
+        let remaindates = (expect - Number(fromnow)).toFixed(1);//剩余天数
         let remaindate = (remaindates < 0) ? '过期' : remaindates;
         let arr = resu;
+        let state = this.data.state;
+
         arr.map((item) => {
-          let datecurr = item.rdate + ' ' + item.rtime;
+          let datecurr = item.rdate.substr(5, item.rdate.length - 1);
           item.name = datecurr;
           item.value = item.rWeight;
           total -= item.value;
           item.rWeight += unit;
         })
         unExe.name = "未实现";
-        unExe.value = total; 
+        unExe.value = total;
         let eveforecast = (Number(total) / Number(remaindates)).toFixed(2) + unit;
+        let overWeight = 0;
         if (total < 0) {
           unExe.name = "超出目标";
           unExe.value *= -1;
+          state = '2';
+          overWeight = unExe.value;
         }
         unExe.rWeight = unExe.value + unit;
-       let overWeight = unExe.rWeight;
         arr.push(unExe);
+        createTime = app.formateDate(createTime);
+        let eve = (resCurr.total / resCurr.expect).toFixed(2);
+        let subTitle = '(' + resCurr.expect + '*' + eve + unit + ')';
         this.setData({
           weights: arr,
           type: plantype,
           title: resCurr.title,
           days: resCurr.expect,
-          eve: (resCurr.total / resCurr.expect).toFixed(2),
+          eve: eve,
           unit: unit,
           createTime: createTime,
           total: resCurr.total,
           remaindate: remaindate,
           remaindates: remaindates,
           eveforecast: eveforecast,
-          overWeight:overWeight
+          overWeight: overWeight,
+          state: state,
+          subTitle:subTitle,
         })
         this.initChart();
       },
@@ -206,14 +190,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    this.submitChange();
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    this.submitChange();
   },
 
   /**
@@ -228,7 +212,7 @@ Page({
    */
   onReachBottom: function () {
     wx.navigateTo({
-      url: '/pages/plan/plan/planHistory/planHistory?weights=' + JSON.stringify(this.data.weights),
+      url: '/pages/plan/plan/planHistory/planHistory?id=' + this.data.id + '&weights=' + JSON.stringify(this.data.weights),
       complete: (res) => { },
       fail: (res) => { },
       success: (result) => { },
@@ -241,5 +225,36 @@ Page({
   onShareAppMessage: function () {
 
   },
+  titleChanged: function (e) {
+    let ttitle = e.detail.value;
+    if (ttitle == this.data.title) {
+      return;
+    }
+    let that = this;
+    wx.showModal({
+      title: '',
+      content: '重命名为"' + ttitle + '"？',
+      success(res) {
+        if (res.confirm) {
+          that.setData({
+            title: ttitle,
+            changeFlag: true
+          })
+        } else if (res.cancel) {
 
+        }
+      }
+    })
+
+  },
+  submitChange: function (e) {
+    if (this.data.changeFlag) {
+      const db = wx.cloud.database()
+      db.collection('weight').doc(this.data.id).update({
+        data: {
+          title: this.data.title,
+        }
+      });
+    }
+  }
 })

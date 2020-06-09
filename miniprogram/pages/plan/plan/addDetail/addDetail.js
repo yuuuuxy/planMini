@@ -15,7 +15,11 @@ Page({
   onLoad: function (options) {
     let id = options.id;
     let now = new Date();
-    let date = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+    let month = (now.getMonth() + 1);
+    month = month > 10 ? month : '0' + month;
+    let dat = now.getDate();
+    dat = dat > 10 ? dat : '0' + dat;
+    let date = now.getFullYear() + '-' + month + '-' + dat;
     let time = now.getHours() + ":" + now.getMinutes();
     this.setData({
       id: id,
@@ -49,7 +53,7 @@ Page({
     obj.rdate = this.data.date;
     obj.rtime = this.data.time;
     obj.detailid = app.guid();
-    
+
     wx.cloud.callFunction({
       name: 'addPlanDetail',
       data: {

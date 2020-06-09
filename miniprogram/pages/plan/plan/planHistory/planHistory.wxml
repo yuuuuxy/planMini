@@ -1,8 +1,13 @@
 <view class="history">
+	<view>距离计划结束还有{{remaindates}}天</view>
 	<view wx:for="{{weights}}" class="item" wx:key="detailid">
-		<text bindtap="showDetail">{{item.name}}: {{item.rWeight}}</text>
+		<view bindtap="showDetail" class="detail">
+			<view class="name">{{item.name}}</view>
+			<view class="num">: {{item.rWeight}}</view>
+		</view>
 		<view wx:if="{{item.detailid}}" bindtap="deleteDetail" data-detailid="{{item.detailid}}" data-rWeight="{{item.rWeight}}">
-			<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>
+			<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}">
+			</image>
 		</view>
 	</view>
 </view>
