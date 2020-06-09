@@ -6,7 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    id: ''
+    id: '',
+    updateFlag: false,//默认是增加
+    detailid: '',
   },
 
   /**
@@ -14,20 +16,41 @@ Page({
    */
   onLoad: function (options) {
     let id = options.id;
-    let now = new Date();
-    let month = (now.getMonth() + 1);
-    month = month > 10 ? month : '0' + month;
-    let dat = now.getDate();
-    dat = dat > 10 ? dat : '0' + dat;
-    let date = now.getFullYear() + '-' + month + '-' + dat;
-    let time = now.getHours() + ":" + now.getMinutes();
+    let updateFlag = false;
+    let date = '';
+    let time = '';
+    let weightVal = undefined;
+    let maxv = 0;
+    let eve = 0;
+    maxv = options.maxv;
+    let detailid = '';
+    if (!!options.dataobj) {//修改方法
+      let dataobj = JSON.parse(options.dataobj);
+      date = dataobj.date;
+      time = dataobj.time;
+      weightVal = dataobj.value;
+      detailid = dataobj.detailid;
+      updateFlag = true;
+    } else {
+      eve = options.eve;
+      let now = new Date();
+      let month = (now.getMonth() + 1);
+      month = month > 10 ? month : '0' + month;
+      let dat = now.getDate();
+      dat = dat > 10 ? dat : '0' + dat;
+      date = now.getFullYear() + '-' + month + '-' + dat;
+      time = now.getHours() + ":" + now.getMinutes();
+    }
+
     this.setData({
       id: id,
       time: time,
       date: date,
-      eve: options.eve,
-      maxv: options.maxv,
-      weightVal: undefined
+      eve: eve,
+      maxv: maxv,
+      weightVal: weightVal,
+      updateFlag: updateFlag,
+      detailid: detailid
     })
   }, weightChange(e) {
     let val = e.detail.value;
@@ -52,8 +75,8 @@ Page({
     obj.rWeight = formData.rWeight;
     obj.rdate = this.data.date;
     obj.rtime = this.data.time;
-    obj.detailid = app.guid();
-
+    obj.detailid = (this.data.updateFlag) ? this.data.detailid : app.guid();
+    
     wx.cloud.callFunction({
       name: 'addPlanDetail',
       data: {
@@ -63,7 +86,7 @@ Page({
       },
       success: res => {
         wx.showToast({
-          title: '保存成功',
+          title: (this.data.updateFlag) ?'修改成功':'添加成功',
         })
       },
       fail: err => {

@@ -14,7 +14,8 @@ Page({
     },
     weights: [],
     id: '',//计划id
-    remaindates: 0//剩余时间
+    remaindates: 0,//剩余时间
+    total: 0,//为了传递给修改页面
   },
 
   /**
@@ -71,7 +72,7 @@ Page({
       _id: this.data.id
     }).get({
       success: res => {
-        let resCurr = res.data[0];
+        let resCurr = res.data[0]; 
         let resu = resCurr.weights;
         let unExe = {};
         let total = resCurr.total;
@@ -79,7 +80,7 @@ Page({
         let unit = resCurr.unit ? resCurr.unit : '';
         let createTime = resCurr.createTime;
         let fromnow = app.getDaysFromNow(createTime);
-        let expect = resCurr.expect; 
+        let expect = resCurr.expect;
         let remaindates = (expect - Number(fromnow)).toFixed(1);
         let remaindate = (remaindates < 0) ? '过期' : remaindates;
         let arr = resu;
@@ -102,7 +103,8 @@ Page({
         arr.push(unExe);
         this.setData({
           weights: arr,
-          remaindates: remaindates
+          remaindates: remaindates,
+          total: resCurr.total
         })
       },
       fail: err => {
@@ -112,6 +114,15 @@ Page({
         })
         console.error('[数据库] [查询记录] 失败：', err)
       }
+    })
+  },
+  showDetail: function (e) {
+    let dataobj = e.currentTarget.dataset;
+    let id = this.data.id;
+    let maxv = this.data.total;
+    const data = JSON.stringify(dataobj);
+    wx.navigateTo({
+      url: '/pages/plan/plan/addDetail/addDetail?id=' + id + '&dataobj=' + data + '&maxv=' + maxv
     })
   },
   /**
