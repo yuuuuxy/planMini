@@ -1,4 +1,4 @@
-/* pages/plan/plan/addDetail/addDetail.wxss */
+/* pages/plan/addDetail/addDetail.wxss */
 page {
   height:100%;
 }

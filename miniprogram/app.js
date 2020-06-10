@@ -21,7 +21,7 @@ App({
     function S4() {
       return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     }
-    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+    return (S4() + S4() + S4() + S4() + S4() + S4() + S4() + S4());
   },
   addTime: function (date, x, f) {//日期加x天
     if (f === 'd') {
@@ -46,4 +46,11 @@ App({
     var s = date.getSeconds();
     return Y + M + D + h + m;
   },
+  getDevided: function (fz, fm, precis, abs) {
+    let fin = (Number(fz)/Number(fm)).toFixed(precis)
+    if(abs){
+      fin = Math.abs(fin);
+    }
+    return fin;
+  }
 })

@@ -1,0 +1,50 @@
+<view class="content flex" wx:if="{{showFlag=='0'}}">
+	<view class="btn add" data-showFlag="{{1}}" data-type="{{1}}" bindtap="changeFlag">累加计划</view>
+	<view class="btn cut" data-showFlag="{{1}}" data-type="{{2}}" bindtap="changeFlag">目标计划</view>
+</view>
+<view class="content" wx:else>
+	<!-- <view class="flex">
+		<view class="retbtn" data-showFlag="{{1}}" bindtap="changeFlag">返回</view>
+	</view> -->
+	<view class="content-de" wx:if="{{showFlag=='1'}}">
+		<form id="addForm" catchsubmit="formSubmit" catchreset="formReset">
+			<view class="title"> 起个名字叭~</view>
+			<input type="text" name="title"></input>
+			<view class="title">设一个{{titlename}}</view>
+			<input type="number" name="total"></input>
+			<view wx:if="{{type=='2'}}">
+				<view class="title"> 现在是多少</view>
+				<input type="number" name="startnum"></input>
+			</view>
+			<view class="title">给个{{titlename}}的单位</view>
+			<input type="text" name="unit"></input>
+			<view class="title"> 设定一个时间（天）</view>
+			<input type="number" name="expect"></input>
+
+			<input hidden name="type" value="{{type}}"></input><!-- 增加类型为1 即累加类的-->
+			<input hidden name="state" value="1"></input><!-- 1.正常情况未超出，2.过期 3.正常情况已经超出计划-->
+			<view class="btn-area flex">
+				<button type="primary" formType="submit">保存</button>
+				<button bindtap="returnPlan">返回</button>
+			</view>
+		</form>
+	</view>
+	<view class="content-de" wx:if="{{showFlag=='2'}}">
+		<form id="goalForm" catchsubmit="formSubmit" catchreset="formReset">
+			<view class="title"> 起个名字叭~</view>
+			<input type="text" name="title"></input>
+			<view class="title">设一个总值</view>
+			<input type="number" name="total"></input>
+			<view class="title">给个总值的单位</view>
+			<input type="text" name="unit"></input>
+			<view class="title"> 设定一个时间（天）</view>
+			<input type="number" name="expect"></input>
+			<input hidden name="type" value="1"></input><!-- 增加类型为1 即累加类的-->
+			<input hidden name="state" value="1"></input><!-- 1.正常情况未超出，2.过期 3.正常情况已经超出计划-->
+			<view class="btn-area flex">
+				<button type="primary" formType="submit">保存</button>
+				<button formType="reset">重置</button>
+			</view>
+		</form>
+	</view>
+</view>

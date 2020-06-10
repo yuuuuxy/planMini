@@ -1,5 +1,5 @@
-// pages/plan/plan/planCover.js
-import * as echarts from '../../../components/ec-canvas/echarts';
+// pages/plan/planCover.js
+import * as echarts from '../../components/ec-canvas/echarts';
 
 const app = getApp();
 var chart = "";
@@ -96,7 +96,7 @@ Page({
     })
   }, record(e) {
     wx.navigateTo({
-      url: '/pages/plan/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.createTime + '&days=' + this.data.days + '&eve=' + this.data.eve + '&maxv=' + this.data.total,
+      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.createTime + '&days=' + this.data.days + '&eve=' + this.data.eve + '&maxv=' + this.data.total,
       complete: (res) => { },
       events: e,
       fail: (res) => { },
@@ -214,7 +214,7 @@ Page({
    */
   onReachBottom: function () {
     wx.navigateTo({
-      url: '/pages/plan/plan/planHistory/planHistory?id=' + this.data.id + '&weights=' + JSON.stringify(this.data.weights),
+      url: '/pages/plan/planHistory/planHistory?id=' + this.data.id,
       complete: (res) => { },
       fail: (res) => { },
       success: (result) => { },

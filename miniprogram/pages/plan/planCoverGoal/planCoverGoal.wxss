@@ -1,0 +1,27 @@
+/* pages/plan/planCoverGoal.wxss */
+page {
+  height: calc(100% + 2px)
+}
+.title {text-align: center;}
+.pic {
+  width: 90%;
+  /* border: 1px solid grey; */
+  height: 80vw;
+  margin: 0 auto;
+}
+
+.bottom-area {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.btn {
+  margin: 10px auto;
+  width: 200px;
+}
+.analyse {
+  padding: 10px;
+}
+.ana-item{margin: 3px 0;}

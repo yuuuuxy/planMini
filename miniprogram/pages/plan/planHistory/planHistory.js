@@ -1,4 +1,4 @@
-// pages/plan/plan/planHistory/planHistory.js
+// pages/plan/planHistory/planHistory.js
 const app = getApp()
 Page({
 
@@ -70,7 +70,7 @@ Page({
     // 查询当前用户所有的 counters
     db.collection('weight').where({
       _id: this.data.id
-    }).get({
+    }).orderBy('rdate', 'asc').get({
       success: res => {
         let resCurr = res.data[0]; 
         let resu = resCurr.weights;
@@ -122,7 +122,7 @@ Page({
     let maxv = this.data.total;
     const data = JSON.stringify(dataobj);
     wx.navigateTo({
-      url: '/pages/plan/plan/addDetail/addDetail?id=' + id + '&dataobj=' + data + '&maxv=' + maxv
+      url: '/pages/plan/addDetail/addDetail?id=' + id + '&dataobj=' + data + '&maxv=' + maxv
     })
   },
   /**

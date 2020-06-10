@@ -1,0 +1,31 @@
+<view>
+	<view class="title">
+		<input type="text" value="{{plan.title}}"></input>
+	</view>
+	<view class="pic">
+		<ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+	</view>
+	<button class="primary" type="primary" class="btn" bindtap="record">记录</button>
+	<view class="analyse">
+		<view class="ana-item">计划开始时间{{plan.createTime}}</view>
+		<view wx:if="{{plan.outofdate}}">
+			<view class="ana-item">计划已到期</view>
+			<view class="ana-item" wx:if="{{plan.realizeFlag}}">已达成目标，并且超出{{plan.diff}}{{plan.unit}}</view>
+			<view class="ana-item" wx:else>距离最终计划还有 {{plan.diff}}{{plan.unit}}未实现</view>
+		</view>
+		<view wx:else>
+			<view class="ana-item" wx:if="{{plan.realizeFlag}}">
+				已达成目标，并且超出{{plan.diff}}{{plan.unit}}
+			</view>
+			<view wx:else>
+				<view class="ana-item">距离最终计划还有 {{plan.diff}}{{plan.unit}}未实现</view>
+				<view class="ana-item">距离计划结束还有{{plan.remaindates}}天</view>
+				<view class="ana-item">以后日均完成{{plan.remaineve}}{{plan.unit}}，就可以啦~</view>
+				<view class="ana-item">计划日均{{plan.eve}}{{plan.unit}}</view>
+			</view>
+		</view>
+	</view>
+</view>
+<view class="bottom-area">
+	<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.pulltoppicurl}}"></image>
+</view>

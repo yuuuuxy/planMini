@@ -1,4 +1,4 @@
-// pages/plan/plan/planList/planList.js
+// pages/plan/planList/planList.js
 Page({
 
   /**
@@ -11,7 +11,12 @@ Page({
       text: 'scaleToFill：不保持纵横比缩放图片，使图片完全适应',
       addpicurl: '/images/add.png',
       deletepicurl: '/images/delete.png'
-    }
+    },
+    planCoverUrl: [
+      '',
+      '/pages/plan/planCover',
+      '/pages/plan/planCoverGoal/planCoverGoal'
+    ]
   },
   getDataList() {
     const db = wx.cloud.database()
@@ -35,8 +40,10 @@ Page({
   },
   showDetail(e) {
     let id = e.target.dataset.id;
+    let type = e.target.dataset.type;
+    let coverUrl = this.data.planCoverUrl[Number(type)];
     wx.navigateTo({
-      url: '/pages/plan/plan/planCover?id=' + id
+      url: coverUrl + '?id=' + id
     })
   },
   deletePlan(e) {
@@ -67,7 +74,7 @@ Page({
   },
   toAdd(e) {
     wx.navigateTo({
-      url: '/pages/plan/plan/addPlan/addPlan',
+      url: '/pages/plan/addPlan/addPlan',
     })
   },
   /**

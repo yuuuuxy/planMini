@@ -1,4 +1,4 @@
-/* pages/plan/plan/planList/planList.wxss */
+/* pages/plan/planList/planList.wxss */
 page {
   background-color: whitesmoke;
   height: 100%;
@@ -14,11 +14,13 @@ ul {
   display: block;
 
 }
-
+.blueone{
+  border-color: lightblue;
+}
 li {
   display: block;
   height: 50px;
-  line-height: 80px;
+  line-height: 70px;
   border-bottom: 1px solid lightpink;
   border-radius: 15px;
   padding: 0 15px;

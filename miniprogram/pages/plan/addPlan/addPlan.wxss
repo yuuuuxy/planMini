@@ -30,13 +30,13 @@ page {
 .add {
   color: white;
   border: 1px solid rgb(121, 220, 221);
-  background-color: lightblue;
+  background-color: lightpink;
 }
 
 .cut {
   color: white;
   border: 1px solid pink;
-  background-color: lightpink;
+  background-color: lightblue;
 }
 input {
   height: 30px;

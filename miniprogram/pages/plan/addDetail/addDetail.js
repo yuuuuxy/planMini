@@ -1,4 +1,4 @@
-// pages/plan/plan/addDetail/addDetail.js
+// pages/plan/addDetail/addDetail.js
 let app = getApp();
 Page({
 
@@ -35,9 +35,9 @@ Page({
       eve = options.eve;
       let now = new Date();
       let month = (now.getMonth() + 1);
-      month = month > 10 ? month : '0' + month;
+      month = month > 9 ? month : '0' + month;
       let dat = now.getDate();
-      dat = dat > 10 ? dat : '0' + dat;
+      dat = dat > 9 ? dat : '0' + dat;
       date = now.getFullYear() + '-' + month + '-' + dat;
       time = now.getHours() + ":" + now.getMinutes();
     }
@@ -76,7 +76,6 @@ Page({
     obj.rdate = this.data.date;
     obj.rtime = this.data.time;
     obj.detailid = (this.data.updateFlag) ? this.data.detailid : app.guid();
-    
     wx.cloud.callFunction({
       name: 'addPlanDetail',
       data: {

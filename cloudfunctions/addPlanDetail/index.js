@@ -16,9 +16,13 @@ exports.main = async (event, context) => {
   })
   const res = await db.collection('weight').doc(id).update({
     data: {
-      // lastModifydate: '123',
       lastModifydate: _.set(event.lastmodified),
-      weights: _.push(event.obj)
+      weights: _.push({
+        each:[event.obj],
+        sort: {
+          rdate: 1,
+        }
+      })
     }
   });
   return {

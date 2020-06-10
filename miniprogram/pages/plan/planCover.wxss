@@ -1,4 +1,4 @@
-/* pages/plan/plan/planCover.wxss */
+/* pages/plan/planCover.wxss */
 page {
   height: calc(100% + 2px)
 }
