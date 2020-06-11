@@ -21,7 +21,7 @@ Page({
       mode: 'aspectFit',
       addpicurl: '/images/add.png',
       pulltoppicurl: '/images/pulltop.png'
-    },
+    }, changeFlag: false,//修改标志 默认没改
   },
 
   /**
@@ -66,8 +66,8 @@ Page({
         //plantype add 递增类型
         //去最后一次记录
         let realizeFlag = true;
-        let final = (datas.length>0)?datas[datas.length - 1]:plan.startnum;
-        let diff = final - Number(plan.total);
+        let final = (datas.length > 0) ? datas[datas.length - 1] : plan.startnum;
+        let diff = app.numSub(final, plan.total);
         //total startnum
         if (plan.plantype == 'add') {
           //递增 最后比目标大则为实现
@@ -88,9 +88,35 @@ Page({
         }
         plan.fromnow = fromnow;
         this.setData({
-          plan: plan
+          plan: plan,
+          title: plan.title,
         });
         this.initChart();
+      }
+    })
+
+  },
+  titleChanged: function (e) {
+    let ttitle = e.detail.value;
+    if (ttitle == this.data.title) {
+      return;
+    }
+    let that = this;
+    wx.showModal({
+      title: '',
+      content: '重命名为"' + ttitle + '"？',
+      success(res) {
+        if (res.confirm) {
+          that.setData({
+            title: ttitle,
+            changeFlag: true
+          })
+          that.submitChange();
+        } else if (res.cancel) {
+          that.setData({
+            title: that.data.title
+          })
+        }
       }
     })
 
@@ -189,8 +215,8 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
-   */
+  * 生命周期函数--监听页面隐藏
+  */
   onHide: function () {
 
   },
@@ -199,7 +225,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
   },
 
   /**
@@ -226,5 +251,19 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  submitChange: function (e) {
+    if (this.data.changeFlag) {
+      const db = wx.cloud.database()
+      db.collection('weight').doc(this.data.id).update({
+        data: {
+          title: this.data.title,
+        }
+      });
+      wx.showToast({
+        title: '成功',
+        icon: 'success',
+      })
+    }
   }
 })

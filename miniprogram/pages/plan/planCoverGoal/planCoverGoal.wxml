@@ -1,6 +1,6 @@
 <view>
 	<view class="title">
-		<input type="text" value="{{plan.title}}"></input>
+		<input type="text" value="{{title}}" bindblur='titleChanged' maxlength="20"></input>
 	</view>
 	<view class="pic">
 		<ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>

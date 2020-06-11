@@ -1,7 +1,7 @@
 <form catchsubmit="saveDetail">
 	<view class="content">
 		<text class="title">	记录此时此刻的状态叭</text>
-		<input type="number" name="rWeight" value="{{weightVal}}" placeholder="每天均值是{{eve}}幺~" class="weui-input posi">
+		<input type="digit" name="rWeight" value="{{weightVal}}" placeholder="每天均值是{{eve}}幺~" class="weui-input posi">
 		</input>
 		<picker mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="dateChange">
 			<view class="picker">

@@ -16,6 +16,7 @@ Page({
     id: '',//计划id
     remaindates: 0,//剩余时间
     total: 0,//为了传递给修改页面
+    expire: false,//是否过期
   },
 
   /**
@@ -23,7 +24,7 @@ Page({
    */
   onLoad: function (options) {
     let finishedid = '463448e05ec9f402001d7920267731ed';
-    let unfinishedid = '20c07e92-1622-3e6f-0aa2-abb091072e71';
+    let unfinishedid = '90dbb4387d4c3bb308b72d3481b4ade2';
     let planid = options.id ? options.id : unfinishedid;
     this.setData({
       id: planid,
@@ -72,7 +73,7 @@ Page({
       _id: this.data.id
     }).orderBy('rdate', 'asc').get({
       success: res => {
-        let resCurr = res.data[0]; 
+        let resCurr = res.data[0];
         let resu = resCurr.weights;
         let unExe = {};
         let total = resCurr.total;
@@ -81,30 +82,47 @@ Page({
         let createTime = resCurr.createTime;
         let fromnow = app.getDaysFromNow(createTime);
         let expect = resCurr.expect;
+        let type = resCurr.type;//1累计 2目标
         let remaindates = (expect - Number(fromnow)).toFixed(1);
         let remaindate = (remaindates < 0) ? '过期' : remaindates;
+        let expire = (remaindates < 0) ? true : false;
         let arr = resu;
+        let final = total;
         arr.map((item) => {
           let datecurr = item.rdate.substr(5, item.rdate.length - 1);
           item.name = datecurr;
           item.value = item.rWeight;
           total -= item.value;
           item.rWeight += unit;
+          final = item.value;
         })
-        unExe.name = "未实现";
-        unExe.value = total;
-        let eveforecast = (Number(total) / Number(remaindates)).toFixed(2) + unit;
-        if (total < 0) {
-          unExe.name = "超出目标";
-          unExe.value *= -1;
+        //最后合计部分,累计计划 目标计划
+        if (type == '1') {
+          unExe.name = "未实现";
+          unExe.value = total;
+          if (total < 0) {
+            unExe.name = "超出目标";
+            unExe.value *= -1;
+          }
+          unExe.rWeight = unExe.value + unit;
+        } else if (type == '2') {
+          //累加计划
+          let startnum = resCurr.startnum;
+          let x = app.numSub(final, resCurr.total);//最后记录和目标的差值
+          if (plantype == 'add') {
+            unExe.name = x > 0 ? '已完成且超出' : '未完成还差';
+          } else if (plantype = 'cut') {
+            unExe.name = x < 0 ? '已完成且超出' : '未完成还差';
+          }
+          unExe.value = Math.abs(x) + unit;
+          unExe.rWeight = Math.abs(unExe.value) + unit;
         }
-        unExe.rWeight = unExe.value + unit;
-        let overWeight = unExe.rWeight;
         arr.push(unExe);
         this.setData({
           weights: arr,
           remaindates: remaindates,
-          total: resCurr.total
+          total: resCurr.total,
+          expire: expire
         })
       },
       fail: err => {

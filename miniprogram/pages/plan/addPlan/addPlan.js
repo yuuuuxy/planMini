@@ -37,6 +37,10 @@ Page({
     let unit = formData.unit;
     formData.subText = '(' + expect + '*' + eve + unit + ')';
     formData.eve = eve;
+    if (this.data.type == '2') {
+      let x = formData.total - formData.startnum;
+      formData.plantype = (x > 0) ? 'add' : 'cut';
+    }
     const db = wx.cloud.database()
     db.collection('weight').add({
       data: formData
@@ -83,9 +87,11 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    /*
     let pages = getCurrentPages();
     let last = pages[pages.length - 2];
     last.getDataList();
+    */
   },
 
   /**

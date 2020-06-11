@@ -24,7 +24,7 @@ page {
 }
 .btn-area{
   position: fixed;
-  bottom: 10px;
+  bottom: 20px;
   width: 80%;
 }
 .add {

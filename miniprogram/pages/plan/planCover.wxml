@@ -2,13 +2,13 @@
 <view>
 	<view class="title">
 		<view>
-			<input type="text" value="{{title}}" bindblur='titleChanged'></input>
+			<input type="text" value="{{title}}" bindblur='titleChanged' maxlength="20"></input>
 		</view>
 	</view>
 	<view class="pic">
 		<ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}" dataWeight ="{{ dataWeight }}"></ec-canvas>
 	</view>
-	<button bindtap="record" type="primary" class="btn">记录</button>
+	<button bindtap="record" type="primary" plain="true" class="btn">记录</button>
 	<view class="forecast">
 		<view>计划开始时间：{{createTime}}</view>
 		<view wx:if="{{ state == 2}}">超出目标值{{overWeight}}</view>

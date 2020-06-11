@@ -34,7 +34,7 @@ Page({
     state: '1',//1.未超出，2.已经超出计划
     changeFlag: false,
     subTitle: '',//副标题
-    title:'',
+    title: '',
   },
 
   /**
@@ -160,7 +160,7 @@ Page({
           eveforecast: eveforecast,
           overWeight: overWeight,
           state: state,
-          subTitle:subTitle,
+          subTitle: subTitle,
         })
         this.initChart();
       },
@@ -243,7 +243,9 @@ Page({
             changeFlag: true
           })
         } else if (res.cancel) {
-
+          that.setData({
+            title: that.data.title
+          })
         }
       }
     })
