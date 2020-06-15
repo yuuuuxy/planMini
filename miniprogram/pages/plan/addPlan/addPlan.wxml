@@ -19,8 +19,7 @@
 			<view class="title">给个{{titlename}}的单位</view>
 			<input type="text" name="unit" maxlength="5"></input>
 			<view class="title"> 设定一个时间（天）</view>
-			<input type="number" name="expect" maxlength="6"></input>
-
+			<input type="number" name="expect" maxlength="6" bindblur="changeDays"></input>
 			<input hidden name="type" value="{{type}}"></input><!-- 增加类型为1 即累加类的-->
 			<input hidden name="state" value="1"></input><!-- 1.正常情况未超出，2.过期 3.正常情况已经超出计划-->
 			<view class="btn-area flex">

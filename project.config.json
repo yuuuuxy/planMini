@@ -11,7 +11,7 @@
 	},
 	"appid": "wx82988071cc5548e1",
 	"projectname": "savingMoney",
-	"libVersion": "2.4.4",
+	"libVersion": "2.11.1",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",

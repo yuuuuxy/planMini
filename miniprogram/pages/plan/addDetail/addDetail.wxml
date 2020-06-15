@@ -1,7 +1,8 @@
 <form catchsubmit="saveDetail">
 	<view class="content">
 		<text class="title">	记录此时此刻的状态叭</text>
-		<input type="digit" name="rWeight" value="{{weightVal}}" placeholder="每天均值是{{eve}}幺~" class="weui-input posi">
+		<input type="digit" name="rWeight" value="{{weightVal}}" 
+		placeholder="{{nowHolder}}" class="weui-input posi">
 		</input>
 		<picker mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="dateChange">
 			<view class="picker">
@@ -17,9 +18,9 @@
 		<view class="body-view">
 			<slider bindchange="weightChange" max="{{maxv}}" show-value />
 		</view>
-		
+
 	</view>
 	<view class="fixed">
-			<button form-type="submit" class="btn" type="primary" plain="true">保存</button>
-		</view>
+		<button form-type="submit" class="btn" type="primary" plain="true">保存</button>
+	</view>
 </form>

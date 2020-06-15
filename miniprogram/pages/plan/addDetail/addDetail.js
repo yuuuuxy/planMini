@@ -21,9 +21,11 @@ Page({
     let time = '';
     let weightVal = undefined;
     let maxv = 0;
-    let eve = 0;
+    let eveforecast = 0;
     maxv = options.maxv;
     let detailid = '';
+    let nowHolder = '';
+    let type = options.type;
     if (!!options.dataobj) {//修改方法
       let dataobj = JSON.parse(options.dataobj);
       date = dataobj.date;
@@ -32,7 +34,8 @@ Page({
       detailid = dataobj.detailid;
       updateFlag = true;
     } else {
-      eve = options.eve;
+      eveforecast = options.eveforecast;
+      let lastadd = options.lastadd;
       let now = new Date();
       let month = (now.getMonth() + 1);
       month = month > 9 ? month : '0' + month;
@@ -40,17 +43,19 @@ Page({
       dat = dat > 9 ? dat : '0' + dat;
       date = now.getFullYear() + '-' + month + '-' + dat;
       time = now.getHours() + ":" + now.getMinutes();
+      nowHolder = (type == '1') ? '预期每天的均值是' + eveforecast + '幺~' : '上次记录是' + lastadd + '幺~';
     }
 
     this.setData({
       id: id,
       time: time,
       date: date,
-      eve: eve,
+      eveforecast: eveforecast,
       maxv: maxv,
       weightVal: weightVal,
       updateFlag: updateFlag,
-      detailid: detailid
+      detailid: detailid,
+      nowHolder: nowHolder
     })
   }, weightChange(e) {
     let val = e.detail.value;
@@ -85,7 +90,7 @@ Page({
       },
       success: res => {
         wx.showToast({
-          title: (this.data.updateFlag) ?'修改成功':'添加成功',
+          title: (this.data.updateFlag) ? '修改成功' : '添加成功',
         })
       },
       fail: err => {

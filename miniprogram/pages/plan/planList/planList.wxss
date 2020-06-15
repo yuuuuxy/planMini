@@ -4,6 +4,11 @@ page {
   height: 100%;
 }
 
+.top-area {
+  padding: 10px;
+  text-align: center;
+}
+
 .content {
   height: calc(100% - 80px);
 }
@@ -14,9 +19,11 @@ ul {
   display: block;
 
 }
-.blueone{
+
+.blueone {
   border-color: lightblue;
 }
+
 li {
   display: block;
   height: 50px;

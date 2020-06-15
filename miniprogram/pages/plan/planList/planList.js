@@ -1,4 +1,10 @@
 // pages/plan/planList/planList.js
+function dataListFilter(item) {
+  if (Number(item.total) >= 6300) {
+    return true
+  }
+  return false
+}
 Page({
 
   /**
@@ -16,13 +22,30 @@ Page({
       '',
       '/pages/plan/planCover',
       '/pages/plan/planCoverGoal/planCoverGoal'
-    ]
+    ],
+    multiArray: [['全部', '过期', '未过期'], ['全部', '已完成', '未完成']],
+    multiIndex: [0, 0],
   },
-  getDataList() {
+  getDataList(expiresNum, completeNum) {
     const db = wx.cloud.database()
-    db.collection('weight').where({
-      _openid: this.data.openid
-    }).get({
+    const _ = db.command;
+    let endTimeCmd = '';
+    let query = {};
+    query._openid=this.data.openid;
+    if (!!expiresNum) {
+      let now = (new Date()).getTime();
+      switch (expiresNum) {
+        case 1:
+          endTimeCmd = _.lt(now)
+          query.endTime = endTimeCmd
+          break;
+        case 2:
+          endTimeCmd = _.gt(now)
+          query.endTime = endTimeCmd
+          break;
+      }
+    }
+    db.collection('weight').where(query).get({
       success: (res => {
         this.setData({
           planList: res.data
@@ -77,6 +100,22 @@ Page({
       url: '/pages/plan/addPlan/addPlan',
     })
   },
+  bindMultiPickerColumnChange(e) {
+    let column = e.detail.column;
+    let val = e.detail.value;
+    let multiIndex = this.data.multiIndex
+    multiIndex[column] = val;
+  },
+  bindMultiPickerChange(e) {
+    let multiIndex = e.detail.value;
+    this.setData({
+      multiIndex: multiIndex
+    });
+    let expiresNum = multiIndex[0];//过期标志 0全部 1过期 2未过
+    let completeNum = multiIndex[1];//完成标志
+    this.getDataList(expiresNum, completeNum);
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -94,7 +133,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log('planList: onshow')
     this.getDataList();
   },
 

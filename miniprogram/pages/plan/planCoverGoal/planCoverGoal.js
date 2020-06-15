@@ -22,6 +22,7 @@ Page({
       addpicurl: '/images/add.png',
       pulltoppicurl: '/images/pulltop.png'
     }, changeFlag: false,//修改标志 默认没改
+    lastadd: '',
   },
 
   /**
@@ -55,7 +56,7 @@ Page({
         let fromnow = app.getDaysFromNow(plan.createTime);
         let remaindates = plan.expect - fromnow;
         plan.remaindates = remaindates;
-        let outofdate = (fromnow > plan.expect) ? true : false;//过期标志
+        let outofdate = (Number(fromnow) > Number(plan.expect)) ? true : false;//过期标志
         plan.outofdate = outofdate;
         weights.map(item => {
           let weight = item.rWeight;
@@ -80,6 +81,7 @@ Page({
         plan.datas = datas;
         plan.createTime = app.formateDate(plan.createTime);
         plan.realizeFlag = realizeFlag;
+        plan.type = ressul.type;
         let remaineve = 0;
         if (!outofdate && !realizeFlag) {
           //未实现,未到期
@@ -90,6 +92,7 @@ Page({
         this.setData({
           plan: plan,
           title: plan.title,
+          lastadd: final + '' + plan.unit
         });
         this.initChart();
       }
@@ -191,7 +194,7 @@ Page({
   },
   record(e) {
     wx.navigateTo({
-      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.plan.createTime + '&days=' + this.data.plan.days + '&eve=' + this.data.plan.eve + '&maxv=' + this.data.plan.total,
+      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.plan.createTime + '&days=' + this.data.plan.days + '&eve=' + this.data.plan.eve + '&maxv=' + this.data.plan.total + '&type=' + this.data.plan.type + '&lastadd=' + this.data.lastadd,
       complete: (res) => { },
       events: e,
       fail: (res) => { },

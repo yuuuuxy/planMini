@@ -16,7 +16,7 @@ Page({
     },
     weights: [
     ],//图表和列表展示数据
-    type: '1',//1 add汇总类需要有未完成部分和溢出部分
+    plantype: '1',//1 add汇总类需要有未完成部分和溢出部分
     days: 0,
     eve: 0,
     eveforecast: 0,//日均预估
@@ -96,7 +96,7 @@ Page({
     })
   }, record(e) {
     wx.navigateTo({
-      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.createTime + '&days=' + this.data.days + '&eve=' + this.data.eve + '&maxv=' + this.data.total,
+      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.createTime + '&days=' + this.data.days + '&eveforecast=' + this.data.eveforecast + '&maxv=' + this.data.total + '&type=' + this.data.type,
       complete: (res) => { },
       events: e,
       fail: (res) => { },
@@ -148,7 +148,7 @@ Page({
         let subTitle = '(' + resCurr.expect + '*' + eve + unit + ')';
         this.setData({
           weights: arr,
-          type: plantype,
+          plantype: plantype,
           title: resCurr.title,
           days: resCurr.expect,
           eve: eve,
@@ -161,6 +161,7 @@ Page({
           overWeight: overWeight,
           state: state,
           subTitle: subTitle,
+          type: resCurr.type
         })
         this.initChart();
       },

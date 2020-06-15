@@ -9,6 +9,9 @@ Page({
     showFlag: '0',//TODO 展示页面 默认为0
     type: '1',//默认是添加类的
     titlename: '总值',//目标值对应type 1总值
+    startTime: '',//计划开始时间
+    endTime: '',//过期时间
+    createTime: '',//创建时间
   },
   changeFlag(event) {
     let titlename = (event.target.dataset.type == '1') ? '总值' : '目标值';
@@ -25,8 +28,9 @@ Page({
   },
   formSubmit(e) {
     let formData = e.detail.value;
-    let createTime = new Date();
-    formData.createTime = createTime;
+    formData.createTime = this.data.createTime;
+    formData.startTime = this.data.startTime;
+    formData.endTime = this.data.endTime;
     formData._id = app.guid();
     formData.weights = [];
     let expect = formData.expect;
@@ -41,6 +45,7 @@ Page({
       let x = formData.total - formData.startnum;
       formData.plantype = (x > 0) ? 'add' : 'cut';
     }
+    formData.total = Number(formData.total)
     const db = wx.cloud.database()
     db.collection('weight').add({
       data: formData
@@ -61,7 +66,17 @@ Page({
   onLoad: function (options) {
 
   },
-
+  changeDays(e) {
+    let createTime = (this.data.createTime == '') ? (new Date()).getTime() : this.data.createTime;
+    let startTime = createTime;
+    let addDays = e.detail.value;
+    let endTime = app.addTime(startTime, addDays, 'd');
+    this.setData({
+      createTime: createTime,
+      startTime: startTime,
+      endTime: endTime
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

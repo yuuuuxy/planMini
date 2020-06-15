@@ -2,7 +2,6 @@
 Page({
   back: function (event) {
     var pages = getCurrentPages();
-    debugger
   },
   /**
    * 页面的初始数据

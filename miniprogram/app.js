@@ -24,12 +24,21 @@ App({
     return (S4() + S4() + S4() + S4() + S4() + S4() + S4() + S4());
   },
   addTime: function (date, x, f) {//日期加x天
-    if (f === 'd') {
-      console.log(date, '日期加了', x, 'days');
-    } else if (f === 't') {//时间
+    let retDate = 0;
+    if (f === 'd') {//天
+      let d = Number(x) * 24 * 60 * 60 * 1000;
+      if ((typeof now) != 'number') {
+        date = (new Date(date)).getTime();
+      }
+      retDate = date + d;
+    } else if (f === 'h') {//小时
     }
+    return retDate;
   },
   getDaysFromNow: function (date) {
+    if ((typeof date) == 'number') {
+      date = new Date(date)
+    }
     let now = new Date();
     let startDate = Date.parse(date);
     let endDate = Date.parse(now);
@@ -38,6 +47,9 @@ App({
   },
 
   formateDate: function (date) {
+    if ((typeof date) == 'number') {
+      date = new Date(date)
+    }
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
     var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
