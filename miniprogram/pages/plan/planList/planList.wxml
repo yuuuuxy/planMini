@@ -1,10 +1,4 @@
-<view class="top-area">
-	<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-    <view class="picker">
-      当前选择：{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
-    </view>
-  </picker>
-</view>
+
 <view class="content">
 	<ul>
 		<li wx:for="{{planList}}"  wx:key="_id" data-type="{{item.type}}"  class="{{item.type=='2'?'blueone':''}}">
@@ -16,7 +10,12 @@
 	</ul>
 
 </view>
-<view style="height:80px">
+<view class="top-area">
+	<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+    <view class="picker">
+      当前选择：{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
+    </view>
+  </picker>
 </view>
 <view class="bottom-container fixed">
 	<image bindtap="toAdd" style="width: 40px; height: 40px;" mode="{{addpic.mode}}" src="{{addpic.addpicurl}}"></image>

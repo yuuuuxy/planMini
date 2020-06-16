@@ -26,12 +26,14 @@ Page({
     multiArray: [['全部', '过期', '未过期'], ['全部', '已完成', '未完成']],
     multiIndex: [0, 0],
   },
-  getDataList(expiresNum, completeNum) {
+  getDataList() {
+    let expiresNum = this.data.multiIndex[0];//过期标志 0全部 1过期 2未过
+    let completeNum = this.data.multiIndex[1];//完成标志
     const db = wx.cloud.database()
     const _ = db.command;
     let endTimeCmd = '';
     let query = {};
-    query._openid=this.data.openid;
+    query._openid = this.data.openid;
     if (!!expiresNum) {
       let now = (new Date()).getTime();
       switch (expiresNum) {
@@ -42,6 +44,21 @@ Page({
         case 2:
           endTimeCmd = _.gt(now)
           query.endTime = endTimeCmd
+          break;
+      }
+    }
+
+    let doneCmd = '';
+    if (!!completeNum) {
+      let now = (new Date()).getTime();
+      switch (completeNum) {
+        case 1:
+          doneCmd = _.eq('1')
+          query.done = doneCmd
+          break;
+        case 2:
+          doneCmd = _.neq('1')
+          query.done = doneCmd
           break;
       }
     }
@@ -111,9 +128,8 @@ Page({
     this.setData({
       multiIndex: multiIndex
     });
-    let expiresNum = multiIndex[0];//过期标志 0全部 1过期 2未过
-    let completeNum = multiIndex[1];//完成标志
-    this.getDataList(expiresNum, completeNum);
+
+    this.getDataList();
   },
 
   /**

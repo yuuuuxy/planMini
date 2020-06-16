@@ -16,7 +16,10 @@ Page({
     id: '',//计划id
     remaindates: 0,//剩余时间
     total: 0,//为了传递给修改页面
+    totalCurr: 0,//为了传递给修改页面
     expire: false,//是否过期
+    plantype: '',
+    type: '',
   },
 
   /**
@@ -122,7 +125,10 @@ Page({
           weights: arr,
           remaindates: remaindates,
           total: resCurr.total,
-          expire: expire
+          expire: expire,
+          type: type,
+          plantype: plantype,
+          totalCurr : resCurr.totalCurr,
         })
       },
       fail: err => {
@@ -141,6 +147,8 @@ Page({
     const data = JSON.stringify(dataobj);
     wx.navigateTo({
       url: '/pages/plan/addDetail/addDetail?id=' + id + '&dataobj=' + data + '&maxv=' + maxv
+      + '&total=' + this.data.total+ '&totalCurr=' + this.data.totalCurr+ '&type=' + this.data.type
+      + '&plantype=' + this.data.plantype
     })
   },
   /**

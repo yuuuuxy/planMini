@@ -9,6 +9,8 @@ Page({
     id: '',
     updateFlag: false,//默认是增加
     detailid: '',
+    total: 0,
+    totalCurr: 0,
   },
 
   /**
@@ -26,6 +28,9 @@ Page({
     let detailid = '';
     let nowHolder = '';
     let type = options.type;
+    let total = options.total;
+    let totalCurr = options.totalCurr;
+    let plantype = options.plantype;
     if (!!options.dataobj) {//修改方法
       let dataobj = JSON.parse(options.dataobj);
       date = dataobj.date;
@@ -55,19 +60,26 @@ Page({
       weightVal: weightVal,
       updateFlag: updateFlag,
       detailid: detailid,
-      nowHolder: nowHolder
+      nowHolder: nowHolder,
+      total: total,
+      totalCurr: totalCurr,
+      plantype: plantype,
+      type: type,
     })
-  }, weightChange(e) {
+  },
+  weightChange(e) {
     let val = e.detail.value;
     this.setData({
       weightVal: val
     })
-  }, dateChange(e) {
+  },
+  dateChange(e) {
     let val = e.detail.value;
     this.setData({
       date: val
     })
-  }, timeChange(e) {
+  },
+  timeChange(e) {
     let val = e.detail.value;
     this.setData({
       time: val
@@ -81,17 +93,45 @@ Page({
     obj.rdate = this.data.date;
     obj.rtime = this.data.time;
     obj.detailid = (this.data.updateFlag) ? this.data.detailid : app.guid();
+    //yxy add 20200616 增加是否完成的相关逻辑
+    let total = Number(this.data.total);
+    let totalCurr = Number(this.data.totalCurr);
+    let data = {
+      id: this.data.id,
+      obj: obj,
+      lastmodified: lastmodified
+    };
+    if (this.data.type == '1') {
+      //累加计划
+      if (this.data.updateFlag) {
+        //修改 先 减去原值 加现在的值
+        totalCurr -= Number(this.data.weightVal);
+      }
+      totalCurr += Number(formData.rWeight);
+      //完成情况分析
+      data.done = (totalCurr >= total) ? '1' : '0';
+    } else if (this.data.type = '2') {
+      //目标计划
+      totalCurr = Number(formData.rWeight);
+      //完成情况分析
+      if (this.data.plantype == 'add') {
+        data.done = (totalCurr >= total) ? '1' : '0';
+      } else if (this.data.plantype = 'cut') {
+        data.done = (totalCurr <= total) ? '1' : '0';
+      }
+    }
+
+    data.totalCurr = totalCurr;
     wx.cloud.callFunction({
       name: 'addPlanDetail',
-      data: {
-        id: this.data.id,
-        obj: obj,
-        lastmodified: lastmodified
-      },
+      data: data,
       success: res => {
         wx.showToast({
           title: (this.data.updateFlag) ? '修改成功' : '添加成功',
         })
+        wx.navigateBack({
+          delta: 1
+        });
       },
       fail: err => {
         console.log(err)

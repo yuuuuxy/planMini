@@ -21,8 +21,11 @@ Page({
       mode: 'aspectFit',
       addpicurl: '/images/add.png',
       pulltoppicurl: '/images/pulltop.png'
-    }, changeFlag: false,//修改标志 默认没改
+    }, 
+    changeFlag: false,//修改标志 默认没改
     lastadd: '',
+    totalCurr: 0,
+    total: 0,
   },
 
   /**
@@ -49,7 +52,7 @@ Page({
         let ressul = res.data[0];
         plan = ressul;
         let fz = Number(ressul.startnum) - Number(ressul.total);//目标-现在
-        plan.eve = app.getDevided(fz, ressul.expect, 2, true)
+        plan.eve = ressul.eve;
         let xtitles = [];
         let datas = [];
         let weights = ressul.weights;
@@ -67,7 +70,7 @@ Page({
         //plantype add 递增类型
         //去最后一次记录
         let realizeFlag = true;
-        let final = (datas.length > 0) ? datas[datas.length - 1] : plan.startnum;
+        let final = ressul.totalCurr;
         let diff = app.numSub(final, plan.total);
         //total startnum
         if (plan.plantype == 'add') {
@@ -82,6 +85,8 @@ Page({
         plan.createTime = app.formateDate(plan.createTime);
         plan.realizeFlag = realizeFlag;
         plan.type = ressul.type;
+        plan.totalCurr = ressul.totalCurr;
+        plan.total = ressul.total;
         let remaineve = 0;
         if (!outofdate && !realizeFlag) {
           //未实现,未到期
@@ -194,7 +199,7 @@ Page({
   },
   record(e) {
     wx.navigateTo({
-      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.plan.createTime + '&days=' + this.data.plan.days + '&eve=' + this.data.plan.eve + '&maxv=' + this.data.plan.total + '&type=' + this.data.plan.type + '&lastadd=' + this.data.lastadd,
+      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.plan.createTime + '&days=' + this.data.plan.days + '&eve=' + this.data.plan.eve + '&maxv=' + this.data.plan.total + '&type=' + this.data.plan.type + '&lastadd=' + this.data.lastadd + '&total=' + this.data.plan.total + '&totalCurr=' + this.data.plan.totalCurr+ '&plantype=' + this.data.plan.plantype,
       complete: (res) => { },
       events: e,
       fail: (res) => { },

@@ -41,11 +41,13 @@ Page({
     let unit = formData.unit;
     formData.subText = '(' + expect + '*' + eve + unit + ')';
     formData.eve = eve;
+    formData.total = Number(formData.total);
+    formData.totalCurr = 0;
     if (this.data.type == '2') {
       let x = formData.total - formData.startnum;
       formData.plantype = (x > 0) ? 'add' : 'cut';
+      formData.totalCurr = Number(formData.startnum);
     }
-    formData.total = Number(formData.total)
     const db = wx.cloud.database()
     db.collection('weight').add({
       data: formData

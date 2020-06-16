@@ -96,7 +96,7 @@ Page({
     })
   }, record(e) {
     wx.navigateTo({
-      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.createTime + '&days=' + this.data.days + '&eveforecast=' + this.data.eveforecast + '&maxv=' + this.data.total + '&type=' + this.data.type,
+      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.createTime + '&days=' + this.data.days + '&eveforecast=' + this.data.eveforecast + '&maxv=' + this.data.total + '&type=' + this.data.type+ '&total=' + this.data.total+ '&totalCurr=' + this.data.totalCurr,
       complete: (res) => { },
       events: e,
       fail: (res) => { },
@@ -155,6 +155,7 @@ Page({
           unit: unit,
           createTime: createTime,
           total: resCurr.total,
+          totalCurr: resCurr.totalCurr,
           remaindate: remaindate,
           remaindates: remaindates,
           eveforecast: eveforecast,
