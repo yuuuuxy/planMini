@@ -16,7 +16,8 @@ Page({
       mode: 'aspectFit',
       text: 'scaleToFill：不保持纵横比缩放图片，使图片完全适应',
       addpicurl: '/images/add.png',
-      deletepicurl: '/images/delete.png'
+      deletepicurl: '/images/delete.png',
+      ontopcurl: '/images/top_active.png'
     },
     planCoverUrl: [
       '',
@@ -62,7 +63,9 @@ Page({
           break;
       }
     }
-    db.collection('weight').where(query).get({
+    db.collection('weight').where(query)
+    .orderBy('order', 'asc')
+    .orderBy('createTime', 'asc').get({
       success: (res => {
         this.setData({
           planList: res.data
@@ -131,7 +134,23 @@ Page({
 
     this.getDataList();
   },
-
+  topPlan(e){
+    let planId = e.currentTarget.dataset.id;
+    wx.cloud.callFunction({
+      // 要调用的云函数名称
+      name: 'updatePlan',
+      // 传递给云函数的参数
+      data: {
+        id: planId
+      },
+      success: res => {
+        this.getDataList();
+        // output: res.result === 3
+      },
+      fail: err => { },
+      complete: () => { }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

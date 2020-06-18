@@ -21,7 +21,7 @@ Page({
       mode: 'aspectFit',
       addpicurl: '/images/add.png',
       pulltoppicurl: '/images/pulltop.png'
-    }, 
+    },
     changeFlag: false,//修改标志 默认没改
     lastadd: '',
     totalCurr: 0,
@@ -51,15 +51,14 @@ Page({
       success: res => {
         let ressul = res.data[0];
         plan = ressul;
-        let fz = Number(ressul.startnum) - Number(ressul.total);//目标-现在
         plan.eve = ressul.eve;
         let xtitles = [];
         let datas = [];
         let weights = ressul.weights;
         let fromnow = app.getDaysFromNow(plan.createTime);
-        let remaindates = plan.expect - fromnow;
+        let remaindates = app.numSub(plan.expect, fromnow);
         plan.remaindates = remaindates;
-        let outofdate = (Number(fromnow) > Number(plan.expect)) ? true : false;//过期标志
+        let outofdate = (Number(plan.endTime) < Number(new Date().getTime())) ? true : false;//过期标志
         plan.outofdate = outofdate;
         weights.map(item => {
           let weight = item.rWeight;
@@ -68,7 +67,7 @@ Page({
           datas.push(weight);
         })
         //plantype add 递增类型
-        //去最后一次记录
+        //取最后一次记录
         let realizeFlag = true;
         let final = ressul.totalCurr;
         let diff = app.numSub(final, plan.total);
@@ -146,7 +145,10 @@ Page({
         subtext: this.data.plan.subText
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        formatter: function (datas) {
+          return datas[0].name + ' ： ' + datas[0].data + "%"; 
+        }
       },
       legend: {
         data: ['changing']
@@ -154,7 +156,7 @@ Page({
       toolbox: {
         show: false,
         feature: {
-          mark: { show: true },
+          // mark: { show: true },
         }
       },
       calculable: true,
@@ -199,7 +201,7 @@ Page({
   },
   record(e) {
     wx.navigateTo({
-      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.plan.createTime + '&days=' + this.data.plan.days + '&eve=' + this.data.plan.eve + '&maxv=' + this.data.plan.total + '&type=' + this.data.plan.type + '&lastadd=' + this.data.lastadd + '&total=' + this.data.plan.total + '&totalCurr=' + this.data.plan.totalCurr+ '&plantype=' + this.data.plan.plantype,
+      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.plan.createTime + '&days=' + this.data.plan.days + '&eve=' + this.data.plan.eve + '&maxv=' + this.data.plan.total + '&type=' + this.data.plan.type + '&lastadd=' + this.data.lastadd + '&total=' + this.data.plan.total + '&totalCurr=' + this.data.plan.totalCurr + '&plantype=' + this.data.plan.plantype,
       complete: (res) => { },
       events: e,
       fail: (res) => { },

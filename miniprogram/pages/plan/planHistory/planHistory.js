@@ -20,6 +20,7 @@ Page({
     expire: false,//是否过期
     plantype: '',
     type: '',
+    datas: [],//所有数据
   },
 
   /**
@@ -33,31 +34,62 @@ Page({
       id: planid,
     })
     this.getData();
-  }, deleteDetail(e) {//删除一条明细
+  },
+  deleteDetail(e) {//删除一条明细
     let detailid = e.currentTarget.dataset.detailid;
     let rWeight = e.currentTarget.dataset.rweight;
     let tips = '删除' + rWeight + '嘛？';
     let that = this;
+
     wx.showModal({
       title: '提示',
       content: tips,
       success(res) {
         if (res.confirm) {
-          that.handleDeleteDetail(detailid, rWeight);
+          that.handleDeleteDetail(detailid, e.currentTarget.dataset.index);
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
       }
     })
 
-  }, handleDeleteDetail(detailidc, rWeight) {
+  }, handleDeleteDetail(detailidc, index) {
+    debugger
     let currId = this.data.id;
+    //yxy add 20200617 TODO 更新totalCurr，done
+    let datas = this.data.datas;
+    let total = this.data.total;
+    let totalCurr = this.data.totalCurr;
+
+    let done = '0';
+    if (this.data.type == '1') {
+      //累加型
+      totalCurr = this.data.totalCurr - Number(datas[index]);
+      done = (totalCurr >= total) ? '1' : '0';
+    } else if (this.data.type == '2') {
+      //目标型
+      if (datas.length > 1) {
+        datas.splice(index, 1);
+        totalCurr = datas[datas.length - 1];
+      }
+      if (this.data.plantype == 'add') {
+        done = (totalCurr >= total) ? '1' : '0';
+      } else if (this.data.plantype = 'cut') {
+        done = (totalCurr <= total) ? '1' : '0';
+      }
+    }
+    this.setData({
+      datas: datas,
+      totalCurr: totalCurr,
+      done: done,
+    })
     //数据库删除功能
     wx.cloud.callFunction({
       name: 'deletePlanDetail',
       data: {
         currId: currId,
         detailid: detailidc,
+        totalCurr: totalCurr,
       },
       success: res => {
         wx.showToast({
@@ -76,6 +108,7 @@ Page({
       _id: this.data.id
     }).orderBy('rdate', 'asc').get({
       success: res => {
+        debugger
         let resCurr = res.data[0];
         let resu = resCurr.weights;
         let unExe = {};
@@ -90,28 +123,27 @@ Page({
         let remaindate = (remaindates < 0) ? '过期' : remaindates;
         let expire = (remaindates < 0) ? true : false;
         let arr = resu;
-        let final = total;
+        let totalCurr = resCurr.totalCurr;
+        let datas = [];
         arr.map((item) => {
           let datecurr = item.rdate.substr(5, item.rdate.length - 1);
           item.name = datecurr;
           item.value = item.rWeight;
-          total -= item.value;
           item.rWeight += unit;
-          final = item.value;
+          datas.push(item.value);
         })
         //最后合计部分,累计计划 目标计划
+        let x = app.numSub(total, totalCurr);//最后记录和目标的差值
         if (type == '1') {
           unExe.name = "未实现";
-          unExe.value = total;
-          if (total < 0) {
+          unExe.value = x;
+          if (x < 0) {
             unExe.name = "超出目标";
             unExe.value *= -1;
           }
           unExe.rWeight = unExe.value + unit;
         } else if (type == '2') {
           //累加计划
-          let startnum = resCurr.startnum;
-          let x = app.numSub(final, resCurr.total);//最后记录和目标的差值
           if (plantype == 'add') {
             unExe.name = x > 0 ? '已完成且超出' : '未完成还差';
           } else if (plantype = 'cut') {
@@ -128,7 +160,8 @@ Page({
           expire: expire,
           type: type,
           plantype: plantype,
-          totalCurr : resCurr.totalCurr,
+          totalCurr: resCurr.totalCurr,
+          datas: datas,
         })
       },
       fail: err => {
@@ -147,8 +180,8 @@ Page({
     const data = JSON.stringify(dataobj);
     wx.navigateTo({
       url: '/pages/plan/addDetail/addDetail?id=' + id + '&dataobj=' + data + '&maxv=' + maxv
-      + '&total=' + this.data.total+ '&totalCurr=' + this.data.totalCurr+ '&type=' + this.data.type
-      + '&plantype=' + this.data.plantype
+        + '&total=' + this.data.total + '&totalCurr=' + this.data.totalCurr + '&type=' + this.data.type
+        + '&plantype=' + this.data.plantype
     })
   },
   /**

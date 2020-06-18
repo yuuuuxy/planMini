@@ -46,7 +46,7 @@ li:hover {
 }
 
 li>text {
-  flex-basis: 90%;
+  flex-basis: 80%;
 }
 
 .fixed {

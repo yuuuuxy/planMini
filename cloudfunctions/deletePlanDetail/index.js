@@ -11,7 +11,9 @@ exports.main = async (event, context) => {
     data: {
       weights: _.pull({
         detailid: detailidc
-      })
+      }),
+      done: event.done,
+      totalCurr: event.totalCurr,
     }
   });
   return {

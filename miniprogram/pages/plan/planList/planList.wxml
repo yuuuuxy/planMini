@@ -3,6 +3,9 @@
 	<ul>
 		<li wx:for="{{planList}}"  wx:key="_id" data-type="{{item.type}}"  class="{{item.type=='2'?'blueone':''}}">
 			<text bindtap="showDetail" data-id="{{item._id}}" data-type="{{item.type}}">{{item.title}}</text>
+			<view bindtap="topPlan" data-id="{{item._id}}" data-plan="{{item.title}}">
+				<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.ontopcurl}}"></image>
+			</view>
 			<view bindtap="deletePlan" data-id="{{item._id}}" data-plan="{{item.title}}">
 				<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>
 			</view>

@@ -34,19 +34,18 @@ Page({
     formData._id = app.guid();
     formData.weights = [];
     let expect = formData.expect;
-    let end = formData.total;
-    let start = formData.startnum;
-    let total = (this.data.type == '1') ? end : (start - end);
-    let eve = app.getDevided(total, expect, 2, true);
+    let total = Number(formData.total);
+    let totalCurr = Number(formData.totalCurr);
+    let totalUnRealize = (this.data.type == '1') ? total : (totalCurr - total);
+    let eve = app.getDevided(totalUnRealize, expect, 2, true);
     let unit = formData.unit;
     formData.subText = '(' + expect + '*' + eve + unit + ')';
     formData.eve = eve;
     formData.total = Number(formData.total);
-    formData.totalCurr = 0;
     if (this.data.type == '2') {
-      let x = formData.total - formData.startnum;
+      let x = app.numSub(formData.total, formData.totalCurr);
       formData.plantype = (x > 0) ? 'add' : 'cut';
-      formData.totalCurr = Number(formData.startnum);
+      formData.totalCurr = Number(formData.totalCurr);
     }
     const db = wx.cloud.database()
     db.collection('weight').add({

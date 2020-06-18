@@ -85,7 +85,7 @@ Page({
       time: val
     })
   },
-  saveDetail(e) {
+  saveDetail(e) {debugger
     let lastmodified = new Date().getTime();
     let formData = e.detail.value;
     let obj = {}
@@ -120,7 +120,6 @@ Page({
         data.done = (totalCurr <= total) ? '1' : '0';
       }
     }
-
     data.totalCurr = totalCurr;
     wx.cloud.callFunction({
       name: 'addPlanDetail',

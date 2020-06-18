@@ -14,7 +14,7 @@
 			<input type="digit" name="total" maxlength="20"></input>
 			<view wx:if="{{type=='2'}}">
 				<view class="title"> 现在是多少</view>
-				<input type="digit" name="startnum" maxlength="10"></input>
+				<input type="digit" name="totalCurr" maxlength="10"></input>
 			</view>
 			<view class="title">给个{{titlename}}的单位</view>
 			<input type="text" name="unit" maxlength="5"></input>
