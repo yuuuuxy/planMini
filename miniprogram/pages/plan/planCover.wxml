@@ -11,12 +11,13 @@
 	<button bindtap="record" type="primary" plain="true" class="btn">记录</button>
 	<view class="forecast">
 		<view>计划开始时间：{{createTime}}</view>
-		<view wx:if="{{ state == 2}}">超出目标值{{overWeight}}</view>
-		<view wx:else>以后日均{{eveforecast}}就可以完成目标啦，加油！~</view>
+		<view wx:if="{{ state == '2'}}">超出目标值{{overWeight}}</view>
+		<view wx:elif="{{ state == '3'}}">达成目标</view>
+		<view wx:else>以后日均{{eveforecast}} {{unit}}就可以完成目标啦，加油！~</view>
 	</view>
 
 </view>
 	<view class="bottom-area">
-		<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.pulltoppicurl}}"></image>
+		<image style="width: 25rpx; height: 25rpx;" mode="{{addpic.mode}}" src="{{addpic.pulltoppicurl}}"></image>
 	</view>
 	

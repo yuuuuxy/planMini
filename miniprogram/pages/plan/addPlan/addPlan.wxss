@@ -7,12 +7,18 @@ page {
   width: 100%;
   flex-direction: column;
 }
+
 .content-de {
   height: calc(100% - 10px);
   width: 80%;
   margin: auto;
 }
-.flex {display: flex; justify-content: space-around;}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+}
+
 .btn {
   width: 60%;
   text-align: center;
@@ -22,11 +28,13 @@ page {
   border-radius: 200px;
   margin: 10px auto;
 }
-.btn-area{
+
+.btn-area {
   position: fixed;
   bottom: 20px;
   width: 80%;
 }
+
 .add {
   color: white;
   border: 1px solid rgb(121, 220, 221);
@@ -38,7 +46,9 @@ page {
   border: 1px solid pink;
   background-color: lightblue;
 }
-input {
+
+input,
+.input {
   height: 30px;
   border-bottom: 1px solid lightblue;
   border-radius: 8px;

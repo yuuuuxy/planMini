@@ -54,7 +54,7 @@ Page({
     })
 
   }, handleDeleteDetail(detailidc, index) {
-    debugger
+    
     let currId = this.data.id;
     //yxy add 20200617 TODO 更新totalCurr，done
     let datas = this.data.datas;
@@ -108,7 +108,7 @@ Page({
       _id: this.data.id
     }).orderBy('rdate', 'asc').get({
       success: res => {
-        debugger
+        
         let resCurr = res.data[0];
         let resu = resCurr.weights;
         let unExe = {};
@@ -143,11 +143,11 @@ Page({
           }
           unExe.rWeight = unExe.value + unit;
         } else if (type == '2') {
-          //累加计划
+          //累加计划 x=目标-当前
           if (plantype == 'add') {
-            unExe.name = x > 0 ? '已完成且超出' : '未完成还差';
-          } else if (plantype = 'cut') {
             unExe.name = x < 0 ? '已完成且超出' : '未完成还差';
+          } else if (plantype = 'cut') {
+            unExe.name = x > 0 ? '已完成且超出' : '未完成还差';
           }
           unExe.value = Math.abs(x) + unit;
           unExe.rWeight = Math.abs(unExe.value) + unit;

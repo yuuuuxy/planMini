@@ -26,6 +26,7 @@ Page({
     let eveforecast = 0;
     maxv = options.maxv;
     let detailid = '';
+    let remaindates = options.remaindates;//剩余天数
     let nowHolder = '';
     let type = options.type;
     let total = options.total;
@@ -48,7 +49,12 @@ Page({
       dat = dat > 9 ? dat : '0' + dat;
       date = now.getFullYear() + '-' + month + '-' + dat;
       time = now.getHours() + ":" + now.getMinutes();
-      nowHolder = (type == '1') ? '预期每天的均值是' + eveforecast + '幺~' : '上次记录是' + lastadd + '幺~';
+      if (Number(remaindates) < 0) {
+        //过期
+        nowHolder = '都过期了还录吗？';
+      } else {
+        nowHolder = (type == '1') ? '预期每天的均值是' + eveforecast + '幺~' : '上次记录是' + lastadd + '幺~';
+      }
     }
 
     this.setData({
@@ -85,7 +91,7 @@ Page({
       time: val
     })
   },
-  saveDetail(e) {debugger
+  saveDetail(e) {
     let lastmodified = new Date().getTime();
     let formData = e.detail.value;
     let obj = {}
@@ -134,6 +140,9 @@ Page({
       },
       fail: err => {
         console.log(err)
+        wx.showToast({
+          title: (this.data.updateFlag) ? '修改失败' : '添加失败',
+        })
         // handle error
       },
       complete: () => {

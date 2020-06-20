@@ -18,8 +18,15 @@
 			</view>
 			<view class="title">给个{{titlename}}的单位</view>
 			<input type="text" name="unit" maxlength="5"></input>
-			<view class="title"> 设定一个时间（天）</view>
-			<input type="number" name="expect" maxlength="6" bindblur="changeDays"></input>
+			<view class="title"> 多少天完成？</view>
+			<input type="number" name="expect" maxlength="6" bindblur="changeDays" value="{{expect}}"></input>
+			<view class="title">
+				或者选择一个结束日期？
+			</view>
+			<picker mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="dateChange">
+				<view class="input">{{date}}</view>
+			</picker>
+
 			<input hidden name="type" value="{{type}}"></input><!-- 增加类型为1 即累加类的-->
 			<input hidden name="state" value="1"></input><!-- 1.正常情况未超出，2.过期 3.正常情况已经超出计划-->
 			<view class="btn-area flex">

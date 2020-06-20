@@ -35,11 +35,22 @@ App({
     }
     return retDate;
   },
-  getDaysFromNow: function (date) {
+  /**
+   * dateaft - date
+   * @param {填入时间} date 
+   * @param {时间2可不填默认此时此刻} dateaft 
+   */
+  getDaysFromNow: function (date, dateaft) {
+    let now;
+    if (!dateaft) {
+      now = new Date();
+    }
     if ((typeof date) == 'number') {
       date = new Date(date)
     }
-    let now = new Date();
+    if ((typeof dateaft) == 'number') {
+      now = new Date(dateaft)
+    }
     let startDate = Date.parse(date);
     let endDate = Date.parse(now);
     let days = (endDate - startDate) / (1 * 24 * 60 * 60 * 1000);
@@ -47,7 +58,9 @@ App({
   },
 
   formateDate: function (date) {
-    if ((typeof date) == 'number') {
+    if (!date) {
+      var date = new Date();
+    } else if ((typeof date) == 'number') {
       date = new Date(date)
     }
     var Y = date.getFullYear() + '-';

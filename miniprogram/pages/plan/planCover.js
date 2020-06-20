@@ -24,14 +24,14 @@ Page({
     createTime: '',
     total: 0,
     remaindate: 0,
-    remaindates: 0,//距离过期天数，复数代表已经过期
+    remaindates: 0,//距离过期天数，负数代表已经过期
     addpic: {
       mode: 'aspectFit',
       addpicurl: '/images/add.png',
       pulltoppicurl: '/images/pulltop.png'
     },
-    overWeight: 0,//超出目标值
-    state: '1',//1.未超出，2.已经超出计划
+    overWeight: 0,//TODO 取值删除 超出目标值
+    state: '1',//1.未超出，2.已经超出计划 3.正好完成
     changeFlag: false,
     subTitle: '',//副标题
     title: '',
@@ -96,7 +96,8 @@ Page({
     })
   }, record(e) {
     wx.navigateTo({
-      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.createTime + '&days=' + this.data.days + '&eveforecast=' + this.data.eveforecast + '&maxv=' + this.data.total + '&type=' + this.data.type+ '&total=' + this.data.total+ '&totalCurr=' + this.data.totalCurr,
+      url: '/pages/plan/addDetail/addDetail?id=' + this.data.id + '&createTime=' + this.data.createTime + '&days=' + this.data.days + '&eveforecast=' + this.data.eveforecast + '&maxv=' + this.data.total + '&type=' + this.data.type + '&total=' + this.data.total + '&totalCurr=' + this.data.totalCurr
+        + '&remaindates=' + this.data.remaindates,
       complete: (res) => { },
       events: e,
       fail: (res) => { },
@@ -104,6 +105,9 @@ Page({
     })
   },
   getData() {
+    wx.showLoading({
+      title: '没加载完..',
+    })
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('weight').where({
@@ -114,12 +118,15 @@ Page({
         let resu = resCurr.weights;
         let unExe = {};
         let total = resCurr.total;
+        let totalCurr = resCurr.totalCurr;
         let plantype = resCurr.plantype;
         let unit = resCurr.unit ? resCurr.unit : '';
         let createTime = resCurr.createTime;
+        let startTime = resCurr.startTime;
+        let endTime = resCurr.endTime;
         let fromnow = app.getDaysFromNow(createTime);
         let expect = resCurr.expect;
-        let remaindates = (expect - Number(fromnow)).toFixed(1);//剩余天数
+        let remaindates = app.getDaysFromNow(new Date(), endTime);//剩余天数
         let remaindate = (remaindates < 0) ? '过期' : remaindates;
         let arr = resu;
         let state = this.data.state;
@@ -128,30 +135,34 @@ Page({
           let datecurr = item.rdate.substr(5, item.rdate.length - 1);
           item.name = datecurr;
           item.value = item.rWeight;
-          total -= item.value;
           item.rWeight += unit;
         })
+        let x = app.numSub(total, totalCurr);
         unExe.name = "未实现";
-        unExe.value = total;
-        let eveforecast = (Number(total) / Number(remaindates)).toFixed(2) + unit;
+        unExe.value = x;
+        let eveforecast = app.getDevided(x, remaindates, 2, false);
         let overWeight = 0;
-        if (total < 0) {
+        unExe.rWeight = unExe.value + unit;
+        if (x < 0) {
           unExe.name = "超出目标";
           unExe.value *= -1;
           state = '2';
           overWeight = unExe.value;
+          unExe.rWeight = unExe.value + unit;
+        } else if (x == 0) {
+          state = '3';
+          unExe.name = "达成目标";
+          unExe.value = 0;
+          unExe.rWeight = '';
         }
-        unExe.rWeight = unExe.value + unit;
         arr.push(unExe);
         createTime = app.formateDate(createTime);
-        let eve = (resCurr.total / resCurr.expect).toFixed(2);
-        let subTitle = '(' + resCurr.expect + '*' + eve + unit + ')';
         this.setData({
           weights: arr,
           plantype: plantype,
           title: resCurr.title,
           days: resCurr.expect,
-          eve: eve,
+          eve: resCurr.eve,
           unit: unit,
           createTime: createTime,
           total: resCurr.total,
@@ -161,12 +172,14 @@ Page({
           eveforecast: eveforecast,
           overWeight: overWeight,
           state: state,
-          subTitle: subTitle,
+          subTitle: resCurr.subText,
           type: resCurr.type
         })
         this.initChart();
+        wx.hideLoading()
       },
       fail: err => {
+        wx.hideLoading()
         wx.showToast({
           icon: 'none',
           title: '查询记录失败'

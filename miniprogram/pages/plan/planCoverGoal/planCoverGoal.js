@@ -42,7 +42,9 @@ Page({
   getData() {
     let id = this.data.id;
     let plan = {};
-
+    wx.showLoading({
+      title: '没加载完..',
+    })
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('weight').where({
@@ -99,6 +101,14 @@ Page({
           lastadd: final + '' + plan.unit
         });
         this.initChart();
+        wx.hideLoading()
+      },
+      fail: err => {
+        wx.hideLoading();
+        wx.showToast({
+          icon: 'none',
+          title: '搞不来数据'
+        })
       }
     })
 
@@ -147,7 +157,7 @@ Page({
       tooltip: {
         trigger: 'axis',
         formatter: function (datas) {
-          return datas[0].name + ' ： ' + datas[0].data + "%"; 
+          return datas[0].name + ' ： ' + datas[0].data + "%";
         }
       },
       legend: {

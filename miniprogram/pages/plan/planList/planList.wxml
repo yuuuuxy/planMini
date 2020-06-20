@@ -4,14 +4,13 @@
 		<li wx:for="{{planList}}"  wx:key="_id" data-type="{{item.type}}"  class="{{item.type=='2'?'blueone':''}}">
 			<text bindtap="showDetail" data-id="{{item._id}}" data-type="{{item.type}}">{{item.title}}</text>
 			<view bindtap="topPlan" data-id="{{item._id}}" data-plan="{{item.title}}">
-				<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.ontopcurl}}"></image>
+				<image style="width: 45rpx; height: 45rpx;" mode="{{addpic.mode}}" src="{{addpic.ontopcurl}}"></image>
 			</view>
 			<view bindtap="deletePlan" data-id="{{item._id}}" data-plan="{{item.title}}">
-				<image style="width: 25px; height: 25px;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>
+				<image style="width: 45rpx; height: 45rpx;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>
 			</view>
 		</li>
 	</ul>
-
 </view>
 <view class="top-area">
 	<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
@@ -21,5 +20,5 @@
   </picker>
 </view>
 <view class="bottom-container fixed">
-	<image bindtap="toAdd" style="width: 40px; height: 40px;" mode="{{addpic.mode}}" src="{{addpic.addpicurl}}"></image>
+	<image bindtap="toAdd" style="width: 60rpx; height: 60rpx;" mode="{{addpic.mode}}" src="{{addpic.addpicurl}}"></image>
 </view>

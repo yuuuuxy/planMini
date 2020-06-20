@@ -63,23 +63,28 @@ Page({
           break;
       }
     }
-    db.collection('weight').where(query)
-    .orderBy('order', 'asc')
-    .orderBy('createTime', 'asc').get({
-      success: (res => {
-        this.setData({
-          planList: res.data
-        })
-      }),
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-
+    wx.showLoading({
+      title: '在求数据..',
     })
+    db.collection('weight').where(query)
+      .orderBy('order', 'asc')
+      .orderBy('createTime', 'asc').get({
+        success: (res => {
+          this.setData({
+            planList: res.data
+          })
+          wx.hideLoading()
+        }),
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '查询记录失败'
+          })
+          wx.hideLoading()
+          console.error('[数据库] [查询记录] 失败：', err)
+        }
+
+      })
   },
   showDetail(e) {
     let id = e.target.dataset.id;
@@ -134,7 +139,7 @@ Page({
 
     this.getDataList();
   },
-  topPlan(e){
+  topPlan(e) {
     let planId = e.currentTarget.dataset.id;
     wx.cloud.callFunction({
       // 要调用的云函数名称
