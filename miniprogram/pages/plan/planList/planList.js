@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ad: true,//显示广告封面
+    adm: 3,
     planList: [],
     addpic: {
       mode: 'aspectFit',
@@ -160,7 +162,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this;
+    let start = this.data.adm;
+    let num = setInterval(function () {
+      if (start <= 0) {
+        clearInterval(num)
+        that.setData({
+          ad: false
+        })
+      }
+      that.setData({
+        adm: --start
+      });
+      console.log('start',start);
+    }, 1000);
   },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -173,6 +190,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+   
+
     this.getDataList();
   },
 
@@ -209,5 +228,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  }
+  , removeAd(e) {
+    this.setData({
+      ad: false
+    })
   }
 })

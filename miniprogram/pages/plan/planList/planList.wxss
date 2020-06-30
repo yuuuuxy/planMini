@@ -46,6 +46,23 @@ li {
   justify-content: space-between;
 }
 
+.content-ad {
+  background-color: greenyellow;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 999;
+  display: none;
+  text-align: center;
+  padding: 50% 0;
+  font-weight: bold;
+  font-size: larger;
+}
+
+.ad-area {
+  display: block;
+}
+
 li:hover {
   height: 140rpx;
   line-height: 140rpx;
