@@ -2,7 +2,12 @@
   text-align: center;
   padding: 0 10px;
 }
-
+.red {
+  color: lightcoral;
+}
+.green {
+  color: lightgreen;
+}
 .history .item {
   height: 50px;
   line-height: 50px;

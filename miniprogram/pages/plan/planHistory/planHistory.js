@@ -28,7 +28,7 @@ Page({
    */
   onLoad: function (options) {
     let finishedid = '463448e05ec9f402001d7920267731ed';
-    let unfinishedid = '90dbb4387d4c3bb308b72d3481b4ade2';
+    let unfinishedid = '7bf6e49262e6c23fdc2c188439bf58d0';
     let planid = options.id ? options.id : unfinishedid;
     this.setData({
       id: planid,
@@ -54,7 +54,7 @@ Page({
     })
 
   }, handleDeleteDetail(detailidc, index) {
-    
+
     let currId = this.data.id;
     //yxy add 20200617 TODO 更新totalCurr，done
     let datas = this.data.datas;
@@ -108,8 +108,9 @@ Page({
       _id: this.data.id
     }).orderBy('rdate', 'asc').get({
       success: res => {
-        
+
         let resCurr = res.data[0];
+        let eve = resCurr.eve;
         let resu = resCurr.weights;
         let unExe = {};
         let total = resCurr.total;
@@ -129,6 +130,11 @@ Page({
           let datecurr = item.rdate.substr(5, item.rdate.length - 1);
           item.name = datecurr;
           item.value = item.rWeight;
+          if(type=='1'){
+            item.over = (item.rWeight > eve)? 1 : 0;
+          }else if(type=='2'){
+            item.over = (item.rWeight > total)? 1 : 0;
+          }
           item.rWeight += unit;
           datas.push(item.value);
         })
@@ -152,6 +158,7 @@ Page({
           unExe.value = Math.abs(x) + unit;
           unExe.rWeight = Math.abs(unExe.value) + unit;
         }
+        unExe.over = 0;
         arr.push(unExe);
         this.setData({
           weights: arr,

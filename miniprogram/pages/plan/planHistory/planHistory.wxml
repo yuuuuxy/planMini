@@ -1,7 +1,7 @@
 <view class="history">
 	<view wx:if="{{expire}}">已经过期咯</view>
 	<view wx:else>距离计划结束还有{{remaindates}}天</view>
-	<view wx:for="{{weights}}" class="item" wx:key="detailid" data-ite='qwe'>
+	<view wx:for="{{weights}}" class="item {{item.over == 0?'green':'red'}}" wx:key="detailid" data-ite='qwe'>
 		<view bindtap="showDetail" data-detailid="{{item.detailid}}" class="detail" data-value="{{item.value}}" data-date="{{item.rdate}}" data-index="{{index}}" data-time="{{item.rtime}}">
 			<view class="name">{{item.name}}</view>
 			<view class="num">: {{item.value}}</view>
