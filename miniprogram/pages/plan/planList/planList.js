@@ -19,7 +19,9 @@ Page({
       text: 'scaleToFill：不保持纵横比缩放图片，使图片完全适应',
       addpicurl: '/images/add.png',
       deletepicurl: '/images/delete.png',
-      ontopcurl: '/images/top_active.png'
+      ontopcurl: '/images/top_active.png',
+      updatepicurl: '/images/edit.png',
+      detailpicurl: '/images/detail.png',
     },
     planCoverUrl: [
       '',
@@ -72,6 +74,11 @@ Page({
       .orderBy('order', 'asc')
       .orderBy('createTime', 'asc').get({
         success: (res => {
+          res.data.map((item) => {
+            let editFlag = (item.weights.length > 0) ? false : true;
+            item.editFlag = editFlag;
+            return item;
+          })
           this.setData({
             planList: res.data
           })
@@ -158,6 +165,14 @@ Page({
       complete: () => { }
     })
   },
+  toEdit(e) {
+    let planId = e.currentTarget.dataset.id;
+    let planType = e.currentTarget.dataset.type;
+    let editFlag = e.currentTarget.dataset.editflag;
+    wx.navigateTo({
+      url: '/pages/plan/editPlan/editPlan?id=' + planId + '&type=' + planType + '&editFlag=' + editFlag,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -174,7 +189,6 @@ Page({
       that.setData({
         adm: --start
       });
-      console.log('start',start);
     }, 1000);
   },
 
@@ -190,7 +204,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-   
+
 
     this.getDataList();
   },

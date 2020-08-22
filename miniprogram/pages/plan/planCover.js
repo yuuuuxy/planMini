@@ -22,6 +22,7 @@ Page({
     eveforecast: 0,//日均预估
     unit: '',
     createTime: '',
+    startTime: '',
     total: 0,
     remaindate: 0,
     remaindates: 0,//距离过期天数，负数代表已经过期
@@ -124,7 +125,7 @@ Page({
         let createTime = resCurr.createTime;
         let startTime = resCurr.startTime;
         let endTime = resCurr.endTime;
-        let fromnow = app.getDaysFromNow(createTime);
+        let fromnow = app.getDaysFromNow(startTime);
         let expect = resCurr.expect;
         let remaindates = app.getDaysFromNow(new Date(), endTime);//剩余天数
         let remaindate = (remaindates < 0) ? '过期' : remaindates;
@@ -156,7 +157,7 @@ Page({
           unExe.rWeight = '';
         }
         arr.push(unExe);
-        createTime = app.formateDate(createTime);
+        startTime = app.formateDate(startTime);
         this.setData({
           weights: arr,
           plantype: plantype,
@@ -173,7 +174,8 @@ Page({
           overWeight: overWeight,
           state: state,
           subTitle: resCurr.subText,
-          type: resCurr.type
+          type: resCurr.type,
+          startTime: startTime
         })
         this.initChart();
         wx.hideLoading()

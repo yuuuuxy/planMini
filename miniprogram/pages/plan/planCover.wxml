@@ -11,7 +11,7 @@
 	</view>
 	<button bindtap="record" type="primary" plain="true" class="btn">记录</button>
 	<view class="forecast">
-		<view>计划开始时间：{{createTime}}</view>
+		<view>计划开始时间：{{startTime}}</view>
 		<view wx:if="{{ state == '2'}}">超出目标值{{overWeight}}</view>
 		<view wx:elif="{{ state == '3'}}">达成目标</view>
 		<view wx:else>以后日均{{eveforecast}} {{unit}}就可以完成目标啦，加油！~</view>

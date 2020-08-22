@@ -84,3 +84,12 @@ li>text {
   bottom: 0;
   /* background-color: whitesmoke; */
 }
+
+.btn_handle {
+  width: 45rpx;
+  height: 45rpx;
+  margin: 0 8rpx;
+}
+.title{
+  overflow: hidden;
+}

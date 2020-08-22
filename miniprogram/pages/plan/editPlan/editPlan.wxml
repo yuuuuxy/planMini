@@ -1,0 +1,33 @@
+	<view class="content-de">
+		<form id="addForm" catchsubmit="formSubmit" catchreset="formReset">
+			<view class="title"> 当初起的名字</view>
+			<input type="text" name="title" model:value="{{title}}" maxlength="20"></input>
+			<view class="title">要改{{titlename}}？</view>
+			<input type="digit" name="total" model:value="{{total}}" maxlength="20"></input>
+			<view wx:if="{{type=='2'}}">
+				<view class="title"> 现在是多少</view>
+				<input type="digit" name="totalCurr" model:value="{{totalCurr}}" maxlength="10"></input>
+			</view>
+			<view class="title">给个{{titlename}}的单位</view>
+			<input type="text" name="unit" model:value="{{unit}}" maxlength="5"></input>
+			<view class="title"> 开始时间改改？</view>
+			<picker mode="date" value="{{startTime}}" data-type='s' start="{{startDate}}" end="{{endDate}}" bindchange="dateChange">
+				<view class="input">{{startTimeShow}}</view>
+			</picker>
+			<view class="title"> 多少天完成？</view>
+			<input type="number" name="expect" maxlength="6" bindblur="changeDays" value="{{expect}}"></input>
+			<view class="title">
+				或者选择一个结束日期？
+			</view>
+			<picker mode="date" value="{{endTime}}" data-type='e' start="{{startDate}}" end="{{endDate}}" bindchange="dateChange">
+				<view class="input">{{endTimeShow}}</view>
+			</picker>
+
+			<input hidden name="type" value="{{type}}"></input><!-- 增加类型为1 即累加类的-->
+			<input hidden name="state" value="1"></input><!-- 1.正常情况未超出，2.过期 3.正常情况已经超出计划-->
+			<view class="btn-area flex">
+				<button wx:if="{{editFlag}}" type="primary" formType="submit">保存</button>
+				<button type="default" plain="true" bindtap="returnPlan">返回</button>
+			</view>
+		</form>
+	</view>

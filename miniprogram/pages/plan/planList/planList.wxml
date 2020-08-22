@@ -7,12 +7,15 @@
 <view class="content">
 	<ul>
 		<li wx:for="{{planList}}" wx:key="_id" data-type="{{item.type}}" class="{{item.type=='2'?'blueone':''}}">
-			<text bindtap="showDetail" data-id="{{item._id}}" data-type="{{item.type}}">{{item.title}}</text>
+			<text bindtap="showDetail" class="title" data-id="{{item._id}}" data-type="{{item.type}}">{{item.title}}</text>
+			<view bindtap="toEdit" data-id="{{item._id}}" data-type="{{item.type}}" data-editFlag="{{item.editFlag}}" data-plan="{{item.title}}">
+				<image class="btn_handle" mode="{{addpic.mode}}" src="{{item.editFlag?addpic.updatepicurl:addpic.detailpicurl}}"></image>
+			</view>
 			<view bindtap="topPlan" data-id="{{item._id}}" data-plan="{{item.title}}">
-				<image style="width: 45rpx; height: 45rpx;" mode="{{addpic.mode}}" src="{{addpic.ontopcurl}}"></image>
+				<image class="btn_handle" mode="{{addpic.mode}}" src="{{addpic.ontopcurl}}"></image>
 			</view>
 			<view bindtap="deletePlan" data-id="{{item._id}}" data-plan="{{item.title}}">
-				<image style="width: 45rpx; height: 45rpx;" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>
+				<image class="btn_handle" mode="{{addpic.mode}}" src="{{addpic.deletepicurl}}"></image>
 			</view>
 		</li>
 	</ul>

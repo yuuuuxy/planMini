@@ -57,8 +57,9 @@ Page({
         let xtitles = [];
         let datas = [];
         let weights = ressul.weights;
-        let fromnow = app.getDaysFromNow(plan.createTime);
-        let remaindates = app.numSub(plan.expect, fromnow);
+        let fromnow = app.getDaysFromNow(plan.startTime);
+        let endTime = ressul.endTime;
+        let remaindates = app.getDaysFromNow(new Date(), endTime);//剩余天数
         plan.remaindates = remaindates;
         let outofdate = (Number(plan.endTime) < Number(new Date().getTime())) ? true : false;//过期标志
         plan.outofdate = outofdate;

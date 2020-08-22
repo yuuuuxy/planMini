@@ -1,10 +1,11 @@
 {
   "pages": [
     "pages/plan/planList/planList",
-    "pages/plan/planCoverGoal/planCoverGoal",
-    "pages/plan/addPlan/addPlan",
-    "pages/plan/planCover",
     "pages/plan/planHistory/planHistory",
+    "pages/plan/addPlan/addPlan",
+    "pages/plan/editPlan/editPlan",
+    "pages/plan/planCoverGoal/planCoverGoal",
+    "pages/plan/planCover",
     "pages/plan/addDetail/addDetail",
     "pages/index/index",
     "pages/myFirstPage/myFirstPage",

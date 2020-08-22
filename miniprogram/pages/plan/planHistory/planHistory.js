@@ -116,11 +116,13 @@ Page({
         let total = resCurr.total;
         let plantype = resCurr.plantype;
         let unit = resCurr.unit ? resCurr.unit : '';
+        let startTime = resCurr.startTime;
+        let endTime = resCurr.endTime;
         let createTime = resCurr.createTime;
-        let fromnow = app.getDaysFromNow(createTime);
+        let fromnow = app.getDaysFromNow(startTime);
         let expect = resCurr.expect;
         let type = resCurr.type;//1累计 2目标
-        let remaindates = (expect - Number(fromnow)).toFixed(1);
+        let remaindates = app.getDaysFromNow(new Date(), endTime);//剩余天数
         let remaindate = (remaindates < 0) ? '过期' : remaindates;
         let expire = (remaindates < 0) ? true : false;
         let arr = resu;
@@ -140,6 +142,7 @@ Page({
         })
         //最后合计部分,累计计划 目标计划
         let x = app.numSub(total, totalCurr);//最后记录和目标的差值
+        x= Number(x);
         if (type == '1') {
           unExe.name = "未实现";
           unExe.value = x;
