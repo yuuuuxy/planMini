@@ -12,6 +12,7 @@ Page({
    */
   data: {
     ad: true,//显示广告封面
+    lb: false,//显示左边菜单栏
     adm: 3,
     planList: [],
     addpic: {
@@ -22,6 +23,7 @@ Page({
       ontopcurl: '/images/top_active.png',
       updatepicurl: '/images/edit.png',
       detailpicurl: '/images/detail.png',
+      menupicurl:'/images/tips.png',
     },
     planCoverUrl: [
       '',
@@ -246,6 +248,11 @@ Page({
   , removeAd(e) {
     this.setData({
       ad: false
+    })
+  }
+  ,showLeftBar(e){
+    this.setData({
+      lb: !this.data.lb
     })
   }
 })

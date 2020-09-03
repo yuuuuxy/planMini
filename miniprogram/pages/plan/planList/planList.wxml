@@ -1,10 +1,11 @@
 <view class="content-ad {{ad?'ad-area':''}}" bindtap="removeAd">
 	Hello there..
 	<view>
-		 {{adm}} 
+		{{adm}}
 	</view>
 </view>
 <view class="content">
+
 	<ul>
 		<li wx:for="{{planList}}" wx:key="_id" data-type="{{item.type}}" class="{{item.type=='2'?'blueone':''}}">
 			<text bindtap="showDetail" class="title" data-id="{{item._id}}" data-type="{{item.type}}">{{item.title}}</text>
@@ -20,6 +21,9 @@
 		</li>
 	</ul>
 </view>
+<view class="leftbar" wx:if="{{lb}}">
+	有什么使用上的或者反馈问题可以联系qq：985472538 哦~
+</view>
 <view class="top-area">
 	<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
 		<view class="picker">
@@ -27,6 +31,10 @@
 		</view>
 	</picker>
 </view>
+
+<div class="menu" bindtap="showLeftBar">
+	<image class="btn_handle" mode="{{addpic.mode}}" src="{{addpic.menupicurl}}"></image>
+</div>
 <view class="bottom-container fixed">
 	<image bindtap="toAdd" style="width: 60rpx; height: 60rpx;" mode="{{addpic.mode}}" src="{{addpic.addpicurl}}"></image>
 </view>

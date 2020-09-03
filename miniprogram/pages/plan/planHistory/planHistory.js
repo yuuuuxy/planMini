@@ -142,7 +142,7 @@ Page({
         })
         //最后合计部分,累计计划 目标计划
         let x = app.numSub(total, totalCurr);//最后记录和目标的差值
-        x= Number(x);
+        x= Number(x).toFixed(2);
         if (type == '1') {
           unExe.name = "未实现";
           unExe.value = x;

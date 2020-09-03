@@ -90,6 +90,26 @@ li>text {
   height: 45rpx;
   margin: 0 8rpx;
 }
-.title{
+
+.title {
   overflow: hidden;
+}
+
+.menu {
+  position: absolute;
+  padding-left: 30rpx;
+}
+
+.leftbar {
+  position: absolute;
+  border: 1px solid lightgrey;
+  background-color: darkgrey;
+  transition-duration: 3s;
+  width: 80vw;
+  border-radius: 15rpx;
+  text-align: center;
+  line-height: 60rpx;
+  margin-top: 60rpx;
+  opacity: 1;
+
 }
